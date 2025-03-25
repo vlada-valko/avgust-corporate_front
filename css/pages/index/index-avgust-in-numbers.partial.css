@@ -1,0 +1,53 @@
+.index-avgust-in-numbers__line {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 50px 0px;
+}
+
+@media(min-width: 600px) {
+    .index-avgust-in-numbers__line {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: space-between; 
+    }
+}
+
+@media(min-width: 800px) {
+    .index-avgust-in-numbers__line {
+            display: grid;
+            grid-template-columns: repeat(4, auto); 
+            justify-content: space-between; 
+            gap: 0; 
+        
+        
+    }
+}
+.index-avgust-in-numbers__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.index-avgust-in-numbers__card-circle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: var(--grey-background-color);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+}
+.index-avgust-in-numbers__card-circle img {
+    width: 30px;
+    height: 30px;
+}
+.index-avgust-in-numbers__client-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+}

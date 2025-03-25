@@ -1,0 +1,29 @@
+.index-corporate-culture .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    gap: 30px;
+  }
+  @media (min-width: 1150px) {
+    .index-corporate-culture .wrapper {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 50%;
+    }
+  }
+  
+.index-corporate-culture__img {
+height: 400px;
+}
+.index-corporate-culture__text-block{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items:self-start;
+  gap: 30px;
+}
+  
+ 

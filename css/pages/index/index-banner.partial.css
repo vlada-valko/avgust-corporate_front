@@ -1,0 +1,22 @@
+.index-banner {
+    background: url(/../img/index/main-banner.jpg) 0 0 / cover no-repeat;
+}
+
+
+
+.index-banner__content {
+    gap: 20px;
+    font-size: 21px;
+}
+
+
+
+.index-banner__content img {
+    width: 75px;
+}
+
+@media (min-width: 1150px) {
+    .index-banner__content img {
+        width: 150px;
+    }
+}

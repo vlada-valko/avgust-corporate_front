@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ua">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/img/logo-small.png" type="image/x-icon" />
+    <title>Корпоративна документація</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/pages/documents-view.css" />
+  </head>
+
+  <body>
+    <header
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="/partials/header/menu.html"
+    ></header>
+
+    <section class="documens">
+      <div class="wrapper">
+        <h1 class="title">Корпоративна культура та професійно-етичний код</h1>
+
+        <!-- Корпоративна культура -->
+        <div class="accordion-container">
+          <p class="description main-text">
+            Корпоративна культура – це сукупність прийнятих усіма членами
+            організації ідей, поглядів, цінностей, які є орієнтирами їхньої
+            поведінки та дій. Головний показник розвиненої корпоративної
+            культури: переконаність усіх співробітників у тому, що їхня
+            організація – найкраща.
+          </p>
+          <div class="set">
+            <a href="#">
+              <p>Корпоративна культура</p>
+              <img src="/img/arrow.png" alt="arrow" />
+            </a>
+            <div class="content">
+              <iframe
+                class="iframe main-text"
+                src="/documents/Корпоративна культура.pdf#zoom=75"
+              >
+                Упс, схоже ваш пристрій не підтримує відображення пдф у
+                браузері. Ви можете
+                <a href="/documents/Корпоративна культура.pdf"
+                  >завантажити документ тут</a
+                >
+              </iframe>
+            </div>
+          </div>
+          <div class="btn-wrapper-dark">
+            <a
+              href="/documents/Корпоративна культура.pdf"
+              class="download-button"
+              ><span>Завантажити</span></a
+            >
+          </div>
+        </div>
+
+        <!-- Командно-етичні норми -->
+        <div class="accordion-container">
+          <p class="description main-text">
+            Командно-етичні норми - це правила поведінки, встановлені в
+            організації та забезпечують ефективну діяльність як окремих
+            співробітників, так і всієї організації в цілому.
+          </p>
+          <div class="set">
+            <a href="#">
+              <p>Командно-етичні норми</p>
+              <img src="/img/arrow.png" alt="arrow" />
+            </a>
+            <div class="content">
+              <iframe
+                class="iframe main-text"
+                src="/documents/Правила спілкування.pdf#zoom=75"
+              >
+                Упс, схоже ваш пристрій не підтримує відображення пдф у
+                браузері. Ви можете
+                <a href="/documents/Правила спілкування.pdf"
+                  >завантажити документ тут</a
+                >
+              </iframe>
+            </div>
+          </div>
+          <div class="btn-wrapper-dark">
+            <a href="/documents/Правила спілкування.pdf" class="download-button"
+              ><span>Завантажити</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Підключення необхідних скриптів -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/additional-js/documents-view-accordeon.js"></script>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

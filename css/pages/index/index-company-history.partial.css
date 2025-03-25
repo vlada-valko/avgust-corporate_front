@@ -1,0 +1,22 @@
+.index-company-history {
+    width: 100%;
+    background: url(/../img/backgrounds/dark-background.jfif) 0 0 / cover no-repeat;
+}
+
+.index-company-history .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--big-h2-light-color);
+    padding: 20px 0;
+}
+
+.index-company-history .main-text {
+    color: var(--main-text-light-color);
+}
+
+.index-company-history img {
+    width: 70px;
+    height: auto;
+}

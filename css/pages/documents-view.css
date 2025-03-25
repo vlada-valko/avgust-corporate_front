@@ -1,0 +1,35 @@
+.documens {
+    padding: 50px 0;
+    }
+.documens .wrapper{
+display: flex;
+flex-direction: column;
+gap: 30px;
+}
+.documens .title{
+  width: fit-content;
+  margin: auto;
+    }
+.set a {
+    width: 100%;
+    background: var(--light-background-color);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.set img {
+    width: 20px;
+    transform: rotate(180deg);
+    transition: all ease-in-out var(--atimations-time);
+}
+
+.set img.accordeon-open {
+    transform: none;
+    transition: all ease-in-out var(--atimations-time);
+}
+.content iframe{
+width: 100%;
+height: 500px;
+}

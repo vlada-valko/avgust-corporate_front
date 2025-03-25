@@ -1,0 +1,282 @@
+.header {
+    background: var(--light-gradient-background);
+    position: relative;
+
+}
+.header__menu-and-personal-account.menu-visible {
+    background: var( --light-background-color);
+} 
+    @media (min-width: 1150px) {
+.header__submenu-list {
+        background: var( --light-background-color);
+    } 
+    }
+
+
+.header .wrapper {
+    font-family: "Philosopher", sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+}
+
+/* BURGER */
+/* #region */
+.header__menu-burger {
+    display: block;
+    width: 24px;
+    height: 2px;
+
+    position: relative;
+    top: 7px;
+    background: var(--dark-border-color);
+    cursor: pointer;
+    transition: 0.2s ease-out;
+}
+
+.header__menu-burger.menu-visible {
+    background: transparent;
+}
+
+.header__menu-burger-lines::before,
+.header__menu-burger-lines::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    background: var(--dark-border-color);
+    transition: all 0.2s ease-out;
+}
+
+.header__menu-burger-lines:before {
+    top: 7px;
+}
+
+.header__menu-burger-lines::after {
+    top: -7px;
+}
+
+.header__menu-burger-lines.menu-visible:before {
+    top: 0px;
+    transform: rotate(-45deg);
+}
+
+.header__menu-burger-lines.menu-visible:after {
+    top: 0px;
+    transform: rotate(45deg);
+}
+
+@media (min-width: 1150px) {
+    .header__menu-burger {
+        display: none;
+    }
+}
+
+/* #endregion */
+
+/* LOGO */
+/* #region */
+.header__logo,
+.header__logo img {
+    display: block;
+    width: 35px;
+    height: auto;
+}
+
+/* #endregion */
+
+/* MENU */
+/* #region */
+.header__menu-and-personal-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-berween;
+    align-items: center;
+    position: absolute;
+    gap: 30px;
+    left: -100vh;
+    top: calc(var(--header-height));
+    transition: all ease-in-out var(--atimations-time);
+    flex-grow: 1;
+}
+
+.header__menu-and-personal-account.menu-visible {
+    left: 0;
+    top: calc(var(--header-height));
+    padding: 50px 0;
+    transition: all ease-in-out var(--atimations-time);
+    width: 100vw;
+    height: auto;
+    background: var(--light-gradient-background);
+}
+
+@media (min-width: 1150px) {
+    .header__menu-and-personal-account {
+        position: static;
+        flex-direction: row;
+    }
+}
+
+.header__menu-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-berween;
+    align-items: center;
+    gap: 30px;
+}
+
+@media (min-width: 1150px) {
+    .header__menu-list {
+        flex-direction: row;
+        justify-content: center;
+        gap: 30px;
+        flex-grow: 1;
+    }
+}
+
+.header__menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-berween;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity var(--atimations-time) ease-in-out,
+        transform var(--atimations-time) ease-in-out;
+}
+
+.header__menu-item.menu-visible {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity var(--atimations-time) ease-in-out,
+        transform var(--atimations-time) ease-in-out;
+}
+
+@media (min-width: 1150px) {
+    .header__menu-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-berween;
+        align-items: center;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.header__menu-item-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    transition: filter ease-in-out var(--atimations-time);
+}
+
+.header__menu-item-btn:hover {
+    filter: var(--filter-to-make-accent-color);
+    transition: filter ease-in-out var(--atimations-time);
+}
+
+.header__menu-item-text.menu-visible {
+    color: var(--accent-color);
+}
+
+.header__menu-item-arrow {
+    display: block;
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+    transform: rotate(0);
+    transition: all ease-in-out var(--atimations-time);
+}
+.header__menu-item-arrow.menu-visible {
+    transform: rotate(180deg);
+    transition: all ease-in-out var(--atimations-time);
+
+}
+
+/* #endregion */
+
+/* SUBMENU */
+/* #region */
+.header__submenu-list,
+.header__personal-account-submenu-list {
+height: 0px;
+opacity: 0;
+transition: all ease-in-out var(--atimations-time);
+
+}
+
+.header__submenu-list.menu-visible,
+.header__personal-account-submenu-list.menu-visible {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: self-start;
+    opacity: 1;
+    transition: all ease-in-out var(--atimations-time);
+    gap: 25px;
+    margin-top: 30px;
+}
+
+@media (min-width: 1150px) {
+    .header__submenu-list,
+    .header__personal-account-submenu-list {
+        position: absolute;
+        top: var(--header-height);
+        left: -100vw;
+        padding: 25px 0;
+        display: flex;
+        transition: all ease-in-out var(--atimations-time);
+    }
+    .header__submenu-list.menu-visible,
+    .header__personal-account-submenu-list.menu-visible {
+        position: absolute;
+        padding: 25px 0;
+        top: var(--header-height);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: all ease-in-out var(--atimations-time);
+        z-index: 100;
+    }
+}
+
+/* #endregion */
+
+
+/* PERSONAL ACCOUNT */
+/* #region */
+.header__personal-account-item a {
+    transition: all ease-in-out var(--atimations-time);
+    border: 1px solid var(--dark-border-color);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+}
+
+.header__personal-account-item a:hover {
+    filter: var(--filter-to-make-accent-color);
+    border-color: var(--accent-color);
+    transition: all ease-in-out var(--atimations-time);
+}
+
+.header__personal-account-item img {
+    object-fit: cover;
+    width: 28px;
+    height: 28px;
+}
+
+/* #endregion */

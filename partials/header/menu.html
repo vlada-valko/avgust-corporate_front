@@ -1,0 +1,199 @@
+<header class="header">
+  <div class="overlay" id="overlay"></div>
+  <nav>
+    <div class="wrapper">
+        <section
+  data-hx-trigger="load"
+  data-hx-swap="outerHTML"
+  data-hx-get="/partials/header/header-login.html"
+></section>
+      <a href="javascript:void(0);" class="header__menu-burger">
+        <span class="header__menu-burger-lines"></span>
+      </a>
+      <a class="header__logo" href="/index.html">
+        <img src="/img/logo-small.png" alt="Logo" />
+      </a>
+
+      <div class="header__menu-and-personal-account">
+        <ul class="header__menu-list">
+          <li class="header__menu-item">
+            <a class="header__menu-item-btn" href="#">
+              <span class="header__menu-item-text">Про компанію</span>
+              <img
+                class="header__menu-item-arrow"
+                src="/img/arrow.png"
+                alt="arrow"
+              />
+            </a>
+            <ul class="header__submenu-list">
+              <li class="header__submenu-item">
+                <a href="/#our-values">Місія та цінності</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="/#corporate-culture"
+                  >Корпоративна культура та <br />
+                  професійно-етичний код</a
+                >
+              </li>
+              <li class="header__submenu-item">
+                <a href="/#our-team">Структура та команда</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="/#company-history">Історія</a>
+              </li>
+              <!-- <li class="header__submenu-item">
+                <a href="../#approach-to-work"
+                  >Схема роботи та <br />
+                  бізнес-модель</a
+                >
+              </li> -->
+              <!-- <li class="header__submenu-item">
+                <a href="">Благодійність</a>
+              </li> -->
+            </ul>
+          </li>
+          <li class="header__menu-item">
+            <a class="header__menu-item-btn" href="#">
+              <span class="header__menu-item-text">Департаменти</span>
+              <img
+                class="header__menu-item-arrow"
+                src="/img/arrow.png"
+                alt="arrow"
+              />
+            </a>
+            <ul class="header__submenu-list">
+              <li class="header__submenu-item">
+                <a href="">Адміністративний</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Закупівель</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Логістики</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Маркетингу</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Продажів</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">HR</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Фінансовий</a>
+              </li>
+            </ul>
+          </li>
+          <li class="header__menu-item">
+            <a class="header__menu-item-btn" href="#">
+              <span class="header__menu-item-text">Інформація</span>
+              <img
+                class="header__menu-item-arrow"
+                src="/img/arrow.png"
+                alt="arrow"
+              />
+            </a>
+            <ul class="header__submenu-list">
+              <li class="header__submenu-item">
+                <a href="">Розклад зустрічей</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Календар поставок</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Співробітники</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Дні народження</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Заходи</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Вакансії</a>
+              </li>
+            </ul>
+          </li>
+          <li class="header__menu-item">
+            <a class="header__menu-item-btn" 
+            href="/pages/corporate-documentations.html"
+              >Корпоративна документація</a
+            >
+          </li>
+          <li class="header__menu-item">
+            <a class="header__menu-item-btn" href="#">
+              <span class="header__menu-item-text">Навчання</span>
+              <img
+                class="header__menu-item-arrow"
+                src="/img/arrow.png"
+                alt="arrow"
+              />
+            </a>
+            <ul class="header__submenu-list">
+              <li class="header__submenu-item">
+                <a href="">Професійна підготовка</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="">Підвищення кваліфікації</a>
+              </li>
+            </ul>
+          </li>
+    
+        </ul>
+
+        <div class="header__personal-account">
+          <ul class="header__personal-account-list">
+            <!-- LOGIN IMG  -->
+            <li class="header__personal-account-item" id="login">
+              <a
+                class="header__menu-item-btn"
+                href="/pages/login.html"
+                target="_parent"
+              >
+                <img src="/img/menu/login.png" alt="login" />
+              </a>
+            </li>
+            <!-- personal-account-icon -->
+            <li
+              class="header__personal-account-item"
+              id="personal-account-icon"
+            >
+              <a href="">
+                <img
+                  src="/img/menu/personal-account.png"
+                  alt="personal-account-icon"
+                />
+              </a>
+              <ul class="header__personal-account-submenu-list">
+                <li class="header__personal-account-submenu-item">
+                  <a href="">Профіль користувача</a>
+                </li>
+                <li class="header__personal-account-submenu-item">
+                  <a href="">Документація</a>
+                </li>
+                <li
+                  class="header__personal-account-submenu-item"
+                  id="admin-pannel"
+                >
+                  <a href="">Адміністративна панель</a>
+                </li>
+                <li class="header__personal-account-submenu-item">
+                  <a href="" id="logout-link">
+                    <img
+                      src="/img/menu/logout.png"
+                      alt="logout"
+                      title="Вийти"
+                    />
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    
+    </div>
+  </nav>
+  <!-- /* login */ -->
+</header>

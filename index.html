@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ua">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/img/logo-small.png" type="image/x-icon" />
+    <title>Avgust.ua</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="partials/header/menu.html"
+    ></header>
+    <section
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="partials/index/index-banner.partial.html"
+    ></section>
+    <section
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="partials/index/index-our-values.partial.html"
+    ></section>
+    <section
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="partials/index/index-corporate-culture.partial.html"
+    ></section>
+    <section
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="partials/index/index-our-team.partial.html"
+    ></section>
+    <section
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="partials/index/index-avgust-in-numbers.partial.html"
+    ></section>
+    <section
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="partials/index/index-company-history.partial.html"
+    ></section>
+    <!-- <section
+    data-hx-trigger="load"
+     data-hx-swap="outerHTML"
+      data-hx-get="partials/index/index-approach-to-work.partial.html"
+    >
+    </section> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

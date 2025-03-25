@@ -1,0 +1,10 @@
+
+.information-banner {
+    background: url(/img/information/information-banner.jfif) 0 0 / cover no-repeat;
+    color: var(--title-light-color);
+}
+@media(min-width:1150px){
+    .information-banner {
+        background: url(/img/information/information-banner.jfif) 0 -200px / cover no-repeat;
+    }
+    }

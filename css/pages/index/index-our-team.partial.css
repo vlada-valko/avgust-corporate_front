@@ -1,0 +1,35 @@
+.index-our-team {
+    width: 100vw;
+    background: var(--green-background-color);
+    color: var(--main-text-light-color);
+}
+.index-our-team .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 30px;
+}
+@media(min-width:1150px) {
+    .index-our-team .wrapper{
+        flex-direction: row;
+    }
+}
+.index-our-team__info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.index-our-team__photo{
+    width: 110%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+@media(min-width:1150px){
+.index-our-team__photo {
+    height: 400px;
+}}
+.index-our-team .small__h2, .index-our-team .main-text {
+    color: var(--main-text-light-color);
+}

@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* MAIN */
+/* #region */
+html{
+ scroll-behavior: smooth;
+}
+body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: "Albert Sans", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--title-dark-color);
+    background: url(/../img/backgrounds/line-background.svg) 0 0 / cover no-repeat;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid green; */
+}
+
+section:not(:last-of-type) {
+    margin-bottom: 30px;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--title-dark-color);
+}
+
+img {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 200;
+    font-size: 20px;
+}
+
+.error-message {
+    color: red;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 10px;
+}
+
+@media(min-width:1000px) {
+    .wrapper {
+        width: 80%;
+        margin: auto;
+        padding: 0;
+    }
+}
+
+/* #endregion */
+
+
+:root {
+    /* TITLES */
+    --title-dark-color: rgb(59, 59, 59);
+    --title-light-color: rgb(255, 255, 255);
+    --small-h2-dark-color: #686868;
+    --small-h2-light-color: rgb(255, 255, 255);
+    --big-h2-dark-color: rgb(59, 59, 59);
+    --big-h2-light-color: rgb(255, 255, 255);
+
+    /* MAIN TEXT */
+    --main-text-dark-color: #686868;
+    --main-text-light-color: rgb(242, 242, 242);
+    --accent-text-color: #eea029;
+
+    /* DECORATIONS */
+    --light-border-color: rgb(255, 255, 255);
+    --dark-border-color: rgb(59, 59, 59);
+
+    /* BACKGROUND */
+    --light-gradient-background: linear-gradient(0deg, rgb(247, 247, 245) 0%, rgb(255, 255, 255) 100%);
+    --light-background-color: rgb(247, 247, 245);
+    --green-background-color: #02776E;
+    --dark-background-color: rgb(59, 59, 59);
+    --grey-background-color: #686868;
+
+
+    /* OTHER */
+    --atimations-time: 0.3s;
+    --filter-to-make-accent-color: invert(63%) sepia(84%) saturate(600%) hue-rotate(-10deg);
+    --header-height: 60px;
+}
+
+/* BUTTONS */
+/* #region */
+/*LIGHT BUTTON */
+/* #region */
+.btn-wrapper-light a {
+    display: block;
+    width: fit-content;
+    font-size: 15px;
+    padding: 7px 20px;
+    text-decoration: none;
+    color: var(--main-text-light-color);
+    border: 1px solid var(--light-border-color);
+    border-radius: 24px;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .3s;
+}
+
+.btn-wrapper-light a span {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-wrapper-light a:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--main-text-light-color);
+    transition: all .3s;
+    border-radius: 24px;
+    opacity: 0;
+}
+
+.btn-wrapper-light a:hover {
+    color: var(--main-text-dark-color);
+}
+
+.btn-wrapper-light a:hover:after {
+    width: 100%;
+    opacity: 1;
+}
+/* #endregion */
+
+/* DARK BUTTON */
+/* #region */
+.btn-wrapper-dark a,
+.btn-wrapper-dark button {
+    display: block;
+    width: fit-content;
+    font-size: 15px;
+    padding: 7px 20px;
+    text-decoration: none;
+    color: var(--main-text-dark-color);
+    border: 1px solid var(--dark-border-color);
+    border-radius: 24px;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .3s;
+}
+
+.btn-wrapper-dark a span,
+.btn-wrapper-dark button span {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-wrapper-dark a:after,
+.btn-wrapper-dark button:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--main-text-dark-color);
+    transition: all .3s;
+    border-radius: 24px;
+    opacity: 0;
+}
+
+.btn-wrapper-dark a:hover,
+.btn-wrapper-dark button:hover {
+    color: var(--main-text-light-color);
+}
+
+.btn-wrapper-dark a:hover:after,
+.btn-wrapper-dark button:hover:after {
+    width: 100%;
+    opacity: 1;
+}
+
+.submit-btn {
+    background-color: var(--light-background-color);
+    margin: auto;
+    transform: matrix(-50%);
+
+}
+/* #endregion */
+/* #endregion */
+
+.title {
+    font-family: "Philosopher", sans-serif;
+    font-size: 32px;
+    font-weight: 200;
+}
+
+/* SMALL H2 */
+/* #region */
+.small__h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--small-h2-dark-color);
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.small__h2 img {
+    width: 20px;
+    height: auto;
+    margin: 0px 15px 0px 0px;
+}
+
+/* #endregion */
+
+/* BIG H2 */
+.big__h2 {
+    font-size: 38px;
+    font-family: "Philosopher", sans-serif;
+    margin: 0px auto;
+    width: fit-content;
+}
+
+.main-text {
+    color: var(--main-text-dark-color);
+    font-size: 16px;
+    font-weight: 200;
+}
+
+/* BANNERS */
+/* #region */
+.banner {
+    width: 100vw;
+    padding: 50px 0px;
+    text-align: justify;
+    min-height: 150px;
+}
+@media (min-width: 1150px) {
+    .banner {
+        padding: 60px 0px;
+    }
+}
+.banner-content,
+.banner-content .title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    line-height: 33px;
+    font-style: italic;
+}
+
+@media (min-width: 1150px) {
+    .banner-content {
+        flex-direction: row;
+    }
+}
+/* #endregion */
+.card-circle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: auto;
+    background: var(--grey-background-color);
+  }
+  
+  .card-circle img {
+    width: 65%;
+    height: auto;
+  }
+  
