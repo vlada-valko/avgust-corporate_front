@@ -40,5 +40,11 @@ $(document).ready(function() {
 });
 
 const slider = document.querySelector('.index-our-values__slider');
-const styles = window.getComputedStyle(slider);
-const maxSliderHeight = styles.getPropertyValue('--max-slider-height');
+
+if (slider) {
+    const styles = window.getComputedStyle(slider);
+    const maxSliderHeight = styles.getPropertyValue('--max-slider-height');
+    console.log("Максимальна висота слайдера:", maxSliderHeight);
+} else {
+}
+

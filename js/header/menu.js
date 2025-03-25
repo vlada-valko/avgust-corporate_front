@@ -8,6 +8,11 @@ const burgerLine = document.querySelector(".header__menu-burger-lines");
 const menuAndPersonalAccountBlock = document.querySelector(".header__menu-and-personal-account");
 const menuItems = document.querySelectorAll(".header__menu-item");
 
+/* PERSONAL ACCOUNT */
+const personalAccountIcon = document.querySelector("#personal-account-icon");
+const personalAccountSubmenu = document.querySelector(".header__personal-account-submenu-list");
+
+/* Функція закриття меню */
 const closeMenu = () => {
     btnBurger.classList.remove("menu-visible");
     burgerLine.classList.remove("menu-visible");
@@ -17,8 +22,7 @@ const closeMenu = () => {
         item.classList.remove("menu-visible");
     });
 
-    // Закриваємо всі сабменю
-    document.querySelectorAll(".header__submenu-list").forEach((submenu) => {
+    document.querySelectorAll(".header__submenu-list, .header__personal-account-submenu-list").forEach((submenu) => {
         submenu.style.height = "0px";
         submenu.classList.remove("menu-visible");
     });
@@ -28,6 +32,7 @@ const closeMenu = () => {
     });
 };
 
+/* Відкриття/закриття бургер-меню */
 btnBurger.addEventListener("click", () => {
     const isMenuOpen = btnBurger.classList.contains("menu-visible");
 
@@ -46,7 +51,7 @@ btnBurger.addEventListener("click", () => {
     }
 });
 
-/* ==== SUBMENU ANIMATION (DESKTOP & MOBILE) ==== */
+/* ==== SUBMENU ANIMATION (MAIN MENU) ==== */
 document.querySelectorAll(".header__menu-item-btn").forEach((btn) => {
     btn.addEventListener("click", (event) => {
         const parentItem = btn.closest(".header__menu-item");
@@ -54,11 +59,17 @@ document.querySelectorAll(".header__menu-item-btn").forEach((btn) => {
         const mainMenuText = parentItem.querySelector(".header__menu-item-text");
         const arrow = parentItem.querySelector(".header__menu-item-arrow");
 
-        if (!submenu) return; // Якщо немає сабменю — нічого не робимо
+        if (!submenu) return;
 
         event.preventDefault();
 
         const isOpen = submenu.classList.contains("menu-visible");
+
+        // Закриваємо сабменю Personal Account, якщо воно було відкрите
+        if (personalAccountSubmenu.classList.contains("menu-visible")) {
+            personalAccountSubmenu.style.height = "0px";
+            personalAccountSubmenu.classList.remove("menu-visible");
+        }
 
         // Закриваємо всі інші сабменю
         document.querySelectorAll(".header__submenu-list").forEach((otherSubmenu) => {
@@ -104,9 +115,52 @@ document.querySelectorAll(".header__menu-item-btn").forEach((btn) => {
     });
 });
 
-/* ==== Закриття меню при кліку на елемент сабменю ==== */
+/* ==== SUBMENU ANIMATION (PERSONAL ACCOUNT) ==== */
+personalAccountIcon.addEventListener("click", (event) => {
+    if (!event.target.closest("a")) {
+        event.preventDefault();
+    }
+
+    const isOpen = personalAccountSubmenu.classList.contains("menu-visible");
+
+    // Закриваємо всі інші сабменю перед відкриттям Personal Account
+    document.querySelectorAll(".header__submenu-list").forEach((submenu) => {
+        submenu.style.height = "0px";
+        submenu.classList.remove("menu-visible");
+
+        const parentItem = submenu.closest(".header__menu-item");
+        const arrow = parentItem.querySelector(".header__menu-item-arrow");
+        const mainMenuText = parentItem.querySelector(".header__menu-item-text");
+
+        mainMenuText.classList.remove("menu-visible");
+        arrow.classList.remove("menu-visible");
+    });
+
+    if (isOpen) {
+        personalAccountSubmenu.style.height = "0px";
+        personalAccountSubmenu.classList.remove("menu-visible");
+    } else {
+        personalAccountSubmenu.style.height = personalAccountSubmenu.scrollHeight + "px";
+        personalAccountSubmenu.classList.add("menu-visible");
+    }
+});
+
+/* ==== Закриття меню при кліку на елемент сабменю (крім персонального акаунта) ==== */
 document.querySelectorAll(".header__submenu-list li a").forEach((submenuItem) => {
     submenuItem.addEventListener("click", () => {
         closeMenu();
     });
+});
+
+/* ==== Закриття сабменю при кліку за межами меню (тільки для десктопної версії) ==== */
+document.addEventListener("click", (event) => {
+    if (window.innerWidth >= 1150) {
+        const isClickInsideMenu = menuAndPersonalAccountBlock.contains(event.target) || 
+                                  btnBurger.contains(event.target) ||
+                                  personalAccountIcon.contains(event.target);
+
+        if (!isClickInsideMenu) {
+            closeMenu();
+        }
+    }
 });

@@ -25,6 +25,7 @@
             
             document.getElementById('loginPage').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
+            window.history.replaceState({}, "", "/index.html");
             location.reload(); 
 
         } else {
