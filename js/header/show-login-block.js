@@ -1,10 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
     const loginButton = document.getElementById('login');
     const closeBtn = document.getElementById('closeBtn');
     const loginPage = document.getElementById('loginPage');
     const overlay = document.getElementById('overlay');
-
-    if (loginButton && loginPage && overlay && closeBtn) {
+    if (loginButton) {
         loginButton.addEventListener('click', function(event) {
             event.preventDefault();
             loginPage.style.display = 'block';  // Показуємо форму
@@ -25,4 +23,4 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error("❌ Не знайдені необхідні елементи для обробки подій.");
     }
-});
+
