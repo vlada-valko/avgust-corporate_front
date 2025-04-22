@@ -22,6 +22,8 @@
             errorMessage.style.display = 'none';
             localStorage.setItem('jwt-token', data['jwt-token']);
             localStorage.setItem('userId', data['userId']);
+            localStorage.setItem('userRole', data['userRole']);
+
             
             document.getElementById('loginPage').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';

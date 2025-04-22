@@ -2,11 +2,11 @@
   <div class="overlay" id="overlay"></div>
   <nav>
     <div class="wrapper">
-        <section
-  data-hx-trigger="load"
-  data-hx-swap="outerHTML"
-  data-hx-get="/partials/header/header-login.html"
-></section>
+      <section
+        data-hx-trigger="load"
+        data-hx-swap="outerHTML"
+        data-hx-get="/partials/header/header-login.html"
+      ></section>
       <a href="javascript:void(0);" class="header__menu-burger">
         <span class="header__menu-burger-lines"></span>
       </a>
@@ -30,16 +30,16 @@
                 <a href="/#our-values">Місія та цінності</a>
               </li>
               <li class="header__submenu-item">
-                <a href="/#corporate-culture"
+                <a href="/pages/our-culture-document.html"
                   >Корпоративна культура та <br />
                   професійно-етичний код</a
                 >
               </li>
               <li class="header__submenu-item">
-                <a href="/#our-team">Структура та команда</a>
+                <a href="/pages/our-team.html">Структура та команда</a>
               </li>
               <li class="header__submenu-item">
-                <a href="/#company-history">Історія</a>
+                <a href="/pages/company-history.html">Історія</a>
               </li>
               <!-- <li class="header__submenu-item">
                 <a href="../#approach-to-work"
@@ -53,37 +53,9 @@
             </ul>
           </li>
           <li class="header__menu-item">
-            <a class="header__menu-item-btn" href="#">
+            <a class="header__menu-item-btn" href="/pages/departments.html">
               <span class="header__menu-item-text">Департаменти</span>
-              <img
-                class="header__menu-item-arrow"
-                src="/img/arrow.png"
-                alt="arrow"
-              />
             </a>
-            <ul class="header__submenu-list">
-              <li class="header__submenu-item">
-                <a href="">Адміністративний</a>
-              </li>
-              <li class="header__submenu-item">
-                <a href="">Закупівель</a>
-              </li>
-              <li class="header__submenu-item">
-                <a href="">Логістики</a>
-              </li>
-              <li class="header__submenu-item">
-                <a href="">Маркетингу</a>
-              </li>
-              <li class="header__submenu-item">
-                <a href="">Продажів</a>
-              </li>
-              <li class="header__submenu-item">
-                <a href="">HR</a>
-              </li>
-              <li class="header__submenu-item">
-                <a href="">Фінансовий</a>
-              </li>
-            </ul>
           </li>
           <li class="header__menu-item">
             <a class="header__menu-item-btn" href="#">
@@ -116,8 +88,9 @@
             </ul>
           </li>
           <li class="header__menu-item">
-            <a class="header__menu-item-btn" 
-            href="/pages/corporate-documentations.html"
+            <a
+              class="header__menu-item-btn"
+              href="/pages/corporate-documentations.html"
               >Корпоративна документація</a
             >
           </li>
@@ -139,7 +112,6 @@
               </li>
             </ul>
           </li>
-
         </ul>
 
         <div class="header__personal-account">
@@ -147,7 +119,7 @@
             <!-- LOGIN IMG  -->
             <li class="header__personal-account-item" id="login">
               <a
-                class="header__personal-account-item-icon" 
+                class="header__personal-account-item-icon"
                 href="javascript:void(0);"
                 target="_parent"
               >
@@ -155,30 +127,33 @@
               </a>
             </li>
             <!-- personal-account-icon -->
-            <li
-              class="header__personal-account-item "
-              id="personal-account-icon"
-            >
-              <a class="header__personal-account-item-icon" href="javascript:void(0);">
+            <li class="header__personal-account-item" id="personal-account-icon">
+              <a
+                class="header__personal-account-item-icon"
+                href="javascript:void(0);"
+              >
                 <img
                   src="/img/menu/personal-account.png"
                   alt="personal-account-icon"
                 />
               </a>
               <ul class="header__personal-account-submenu-list">
-
                 <li class="header__personal-account-submenu-item">
                   <a href="/pages/account/user-profile.html">Профіль користувача</a>
                 </li>
-                <li
+                <!-- <li
                   class="header__personal-account-submenu-item"
                   id="admin-pannel"
                 >
                   <a href="">Адміністративна панель</a>
-                </li>
+                </li> -->
                 <li class="header__personal-account-submenu-item">
-                  <a class="header__personal-account-item-icon" href="" id="logout-link">
-                    <img 
+                  <a
+                    class="header__personal-account-item-icon"
+                    href=""
+                    id="logout-link"
+                  >
+                    <img
                       src="/img/menu/logout.png"
                       alt="logout"
                       title="Вийти"
@@ -190,7 +165,6 @@
           </ul>
         </div>
       </div>
-    
     </div>
   </nav>
   <!-- /* login */ -->

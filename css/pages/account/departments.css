@@ -1,0 +1,56 @@
+.departments .wrapper {
+    position: relative;
+}
+
+.department__read-by-id-container {
+    position: absolute;
+    top: 50%;
+    left: 00%;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: var(--light-background-color);
+    display: none;
+}
+
+.department__read-by-id-container.visible {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 00%;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: var(--light-background-color);
+}
+
+.department__read-all-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.department-block {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--light-background-color);
+    padding: 10px;
+}
+
+.department-block .title {
+    font-size: 22px;
+}
+
+.create-department-container {
+    display: none;
+}
+
+.create-department-container.visible {
+    display: block;
+}

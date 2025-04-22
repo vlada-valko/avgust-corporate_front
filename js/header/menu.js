@@ -5,18 +5,18 @@ const btnBurger = document.querySelector(".header__menu-burger");
 const burgerLine = document.querySelector(".header__menu-burger-lines");
 
 /* MAIN MENU */
-const menuAndPersonalAccountBlock = document.querySelector(".header__menu-and-personal-account");
+const menuAndPersonalaccountBlock = document.querySelector(".header__menu-and-personal-account");
 const menuItems = document.querySelectorAll(".header__menu-item");
 
-/* PERSONAL ACCOUNT */
-const personalAccountIcon = document.querySelector("#personal-account-icon");
-const personalAccountSubmenu = document.querySelector(".header__personal-account-submenu-list");
+/* PERSONAL account */
+const personalaccountIcon = document.querySelector("#personal-account-icon");
+const personalaccountSubmenu = document.querySelector(".header__personal-account-submenu-list");
 
 /* Функція закриття меню */
 const closeMenu = () => {
     btnBurger.classList.remove("menu-visible");
     burgerLine.classList.remove("menu-visible");
-    menuAndPersonalAccountBlock.classList.remove("menu-visible");
+    menuAndPersonalaccountBlock.classList.remove("menu-visible");
 
     menuItems.forEach((item) => {
         item.classList.remove("menu-visible");
@@ -41,7 +41,7 @@ btnBurger.addEventListener("click", () => {
     } else {
         btnBurger.classList.add("menu-visible");
         burgerLine.classList.add("menu-visible");
-        menuAndPersonalAccountBlock.classList.add("menu-visible");
+        menuAndPersonalaccountBlock.classList.add("menu-visible");
 
         menuItems.forEach((item, index) => {
             setTimeout(() => {
@@ -65,10 +65,10 @@ document.querySelectorAll(".header__menu-item-btn").forEach((btn) => {
 
         const isOpen = submenu.classList.contains("menu-visible");
 
-        // Закриваємо сабменю Personal Account, якщо воно було відкрите
-        if (personalAccountSubmenu.classList.contains("menu-visible")) {
-            personalAccountSubmenu.style.height = "0px";
-            personalAccountSubmenu.classList.remove("menu-visible");
+        // Закриваємо сабменю Personal account, якщо воно було відкрите
+        if (personalaccountSubmenu.classList.contains("menu-visible")) {
+            personalaccountSubmenu.style.height = "0px";
+            personalaccountSubmenu.classList.remove("menu-visible");
         }
 
         // Закриваємо всі інші сабменю
@@ -115,15 +115,15 @@ document.querySelectorAll(".header__menu-item-btn").forEach((btn) => {
     });
 });
 
-/* ==== SUBMENU ANIMATION (PERSONAL ACCOUNT) ==== */
-personalAccountIcon.addEventListener("click", (event) => {
+/* ==== SUBMENU ANIMATION (PERSONAL account) ==== */
+personalaccountIcon.addEventListener("click", (event) => {
     if (!event.target.closest("a")) {
         event.preventDefault();
     }
 
-    const isOpen = personalAccountSubmenu.classList.contains("menu-visible");
+    const isOpen = personalaccountSubmenu.classList.contains("menu-visible");
 
-    // Закриваємо всі інші сабменю перед відкриттям Personal Account
+    // Закриваємо всі інші сабменю перед відкриттям Personal account
     document.querySelectorAll(".header__submenu-list").forEach((submenu) => {
         submenu.style.height = "0px";
         submenu.classList.remove("menu-visible");
@@ -137,11 +137,11 @@ personalAccountIcon.addEventListener("click", (event) => {
     });
 
     if (isOpen) {
-        personalAccountSubmenu.style.height = "0px";
-        personalAccountSubmenu.classList.remove("menu-visible");
+        personalaccountSubmenu.style.height = "0px";
+        personalaccountSubmenu.classList.remove("menu-visible");
     } else {
-        personalAccountSubmenu.style.height = personalAccountSubmenu.scrollHeight + "px";
-        personalAccountSubmenu.classList.add("menu-visible");
+        personalaccountSubmenu.style.height = personalaccountSubmenu.scrollHeight + "px";
+        personalaccountSubmenu.classList.add("menu-visible");
     }
 });
 
@@ -155,9 +155,9 @@ document.querySelectorAll(".header__submenu-list li a").forEach((submenuItem) =>
 /* ==== Закриття сабменю при кліку за межами меню (тільки для десктопної версії) ==== */
 document.addEventListener("click", (event) => {
     if (window.innerWidth >= 1150) {
-        const isClickInsideMenu = menuAndPersonalAccountBlock.contains(event.target) || 
+        const isClickInsideMenu = menuAndPersonalaccountBlock.contains(event.target) || 
                                   btnBurger.contains(event.target) ||
-                                  personalAccountIcon.contains(event.target);
+                                  personalaccountIcon.contains(event.target);
 
         if (!isClickInsideMenu) {
             closeMenu();

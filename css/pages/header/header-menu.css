@@ -3,14 +3,16 @@
     position: relative;
 
 }
+
 .header__menu-and-personal-account.menu-visible {
-    background: var( --light-background-color);
-} 
-    @media (min-width: 1150px) {
-.header__submenu-list {
-        background: var( --light-background-color);
-    } 
+    background: var(--light-background-color);
+}
+
+@media (min-width: 1150px) {
+    .header__submenu-list {
+        background: var(--light-background-color);
     }
+}
 
 
 .header .wrapper {
@@ -179,11 +181,10 @@
     transition: filter ease-in-out var(--atimations-time);
 }
 
-.header__menu-item-text.menu-visible
-
- {
-    color: var( --accent-text-color);
+.header__menu-item-text.menu-visible {
+    color: var(--accent-text-color);
 }
+
 .header__menu-item-arrow {
     display: block;
     width: 15px;
@@ -192,6 +193,7 @@
     transform: rotate(0);
     transition: all ease-in-out var(--atimations-time);
 }
+
 .header__menu-item-arrow.menu-visible {
     transform: rotate(180deg);
     transition: all ease-in-out var(--atimations-time);
@@ -205,9 +207,9 @@
 /* #region */
 .header__submenu-list,
 .header__personal-account-submenu-list {
-height: 0px;
-opacity: 0;
-transition: all ease-in-out var(--atimations-time);
+    height: 0px;
+    opacity: 0;
+    transition: all ease-in-out var(--atimations-time);
 
 }
 
@@ -225,6 +227,7 @@ transition: all ease-in-out var(--atimations-time);
 }
 
 @media (min-width: 1150px) {
+
     .header__submenu-list,
     .header__personal-account-submenu-list {
         position: absolute;
@@ -234,6 +237,7 @@ transition: all ease-in-out var(--atimations-time);
         display: flex;
         transition: all ease-in-out var(--atimations-time);
     }
+
     .header__submenu-list.menu-visible,
     .header__personal-account-submenu-list.menu-visible {
         position: absolute;
@@ -252,14 +256,15 @@ transition: all ease-in-out var(--atimations-time);
         z-index: 100;
     }
 }
-.header__submenu-item:hover{
+
+.header__submenu-item:hover {
     color: var(--accent-text-color);
 }
 
 /* #endregion */
 
 
-/* PERSONAL ACCOUNT */
+/* PERSONAL account */
 /* #region */
 .header__personal-account-item-icon {
     transition: all ease-in-out var(--atimations-time);
@@ -275,7 +280,7 @@ transition: all ease-in-out var(--atimations-time);
 
 .header__personal-account-item-icon:hover {
     filter: var(--filter-to-make-accent-color);
-    border-color: var( --accent-text-color);
+    border-color: var(--accent-text-color);
     transition: all ease-in-out var(--atimations-time);
 }
 
