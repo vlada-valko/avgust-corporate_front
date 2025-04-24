@@ -1,21 +1,35 @@
 .our-team__container {
-    display: grid;
-    gap: 24px;
-    grid-template-columns: repeat(1, 1fr); /* За замовчуванням — 1 в ряд */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 25px;
+    padding: 20px;
   }
+    .our-team__card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  
   @media (min-width: 600px) {
     .our-team__container {
-      grid-template-columns: repeat(2, 1fr); /* Середній екран — 2 */
-      gap: 60px;
+      gap: 40px;
+    }
+    .our-team__card {
+      flex: 1 1 calc(50% - 40px);
+      max-width: calc(50% - 40px);
     }
   }
+  
   @media (min-width: 1150px) {
     .our-team__container {
-      grid-template-columns: repeat(3, 1fr); /* Великий екран — 3 */
-      gap: 80px;
+      gap: 50px;
+    }
+    .our-team__card {
+      flex: 1 1 calc(33.333% - 50px);
+      max-width: calc(33.333% - 50px);
     }
   }
+  
   
   .our-team__card {
     display: flex;
@@ -59,6 +73,9 @@
     width: fit-content;
     text-align: center;
 }
+.form-group input:focus {
+  outline: none;
+}
 .our-team__person-info .form-group {
     display: flex;
     flex-direction: column;
@@ -67,14 +84,21 @@
 }
 .our-team__person-contacts {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
+.contact-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 .contact-icon a{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--dark-border-color);

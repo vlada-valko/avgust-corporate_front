@@ -17,12 +17,13 @@ async function loadUserPage() {
     const data = await response.json();
     renderUserData(data);
   } catch (error) {
-    // document.querySelector(".account-container").innerHTML = "<p>Не вдалося завантажити дані користувача.</p>";
+    console.error(error);
+    document.querySelector(".user-profile-container").innerHTML = "<p>Не вдалося завантажити дані користувача.</p>";
   }
 }
 
 function renderUserData(data) {
-  const userContainer = document.querySelector(".account-container");
+  const userContainer = document.querySelector(".user-profile-container");
   userContainer.innerHTML = "";
 
   if (!data.user && !data?.employee) {
@@ -31,7 +32,7 @@ function renderUserData(data) {
   }
 
   const form = document.createElement("form");
-  form.classList.add("account-form");
+  form.classList.add("user-profile-form");
 
   const photoContainer = document.createElement("div");
   photoContainer.classList.add("photo-container");
