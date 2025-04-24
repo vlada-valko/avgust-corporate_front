@@ -1,0 +1,10 @@
+
+.our-team-banner {
+    background: url(/img/team/our-team-banner.jpg) 0 0 / cover no-repeat;
+    color: var(--title-light-color);
+}
+@media(min-width:1150px){
+    .our-team-banner {
+        background: url(/img/team/our-team-banner.jpg) 0 -200px / cover no-repeat;
+    }
+    }

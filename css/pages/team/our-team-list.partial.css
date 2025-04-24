@@ -1,0 +1,99 @@
+.our-team__container {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(1, 1fr); /* За замовчуванням — 1 в ряд */
+    gap: 25px;
+  }
+  @media (min-width: 600px) {
+    .our-team__container {
+      grid-template-columns: repeat(2, 1fr); /* Середній екран — 2 */
+      gap: 60px;
+    }
+  }
+  @media (min-width: 1150px) {
+    .our-team__container {
+      grid-template-columns: repeat(3, 1fr); /* Великий екран — 3 */
+      gap: 80px;
+    }
+  }
+  
+  .our-team__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: var(--light-background-color);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* м'яка тінь */
+    transition: transform var(--atimations-time) ease, box-shadow var(--atimations-time) ease;
+  }
+  .our-team__card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* глибша тінь при наведенні */
+    transition:  box-shadow var(--atimations-time) ease;
+
+  }
+
+.our-team__person-photo form input{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: 50% 30%;
+    border-radius: 50%;
+}  
+.our-team__person-info {
+    position: relative;
+}
+.our-team__person-info, .our-team__person-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.our-team__container form input, .our-team__container button {
+    border: none;
+    background: none;
+}
+.our-team__person-info .title {
+    font-size: 22px;
+}
+.form-group input {
+    width: fit-content;
+    text-align: center;
+}
+.our-team__person-info .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.our-team__person-contacts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.contact-icon a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--dark-border-color);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    filter: none;
+    transition: all var(--atimations-time) ease;
+}
+.contact-icon a:hover{
+    filter: var(--filter-to-make-accent-color);
+    transition: all var(--atimations-time) ease;
+
+}
+.contact-icon a img {
+    width: 25px;
+    height: 25px;
+}
+.our-team__person-info .btn-wrapper-dark {
+    width: fit-content;
+    margin: auto;
+}

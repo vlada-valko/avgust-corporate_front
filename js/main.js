@@ -17,13 +17,19 @@ async function loadScripts() {
     /* INDEX */
     await import("./index/index-carousel.js");
     await import("./index/index-avgust-in-numbers-counter.js");
-
+        /*EMPLOYEE*/
+        await import("./employee/employee-mapping.js");
+        await import("./employee/employee-read-all.js");
+        await import("./employee/employee-create.js");
+        await import("./employee/employee-read-by-id.js");
+        await import("./employee/employee-delete.js");
     /*DEPARTMENTS*/
-    await import("./department/mapping.js");
-    await import("./department/read-all.js");
-    await import("./department/create.js");
-    await import("./department/read-by-id.js");
-    await import("./department/delete.js");
+    await import("./department/department-mapping.js");
+    await import("./department/department-read-all.js");
+    await import("./department/department-create.js");
+    await import("./department/department-read-by-id.js");
+    await import("./department/department-delete.js");
+
 
   } catch (error) {
   }
