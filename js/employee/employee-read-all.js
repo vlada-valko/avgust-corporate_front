@@ -1,4 +1,4 @@
-// import { readDepartmentById } from "./read-by-id.js";
+import { readEmployeeById } from "./employee-read-by-id.js";
 
 async function readAllEmployee() {
     try {
@@ -155,7 +155,7 @@ function renderEmployeeCards(employees) {
         const btnWrapper = document.createElement("div");
         btnWrapper.classList.add("btn-wrapper-dark");
         const btnLink = document.createElement("a");
-        btnLink.href = `/pages/employee-detail.html?id=${employee.id}`;
+        btnLink.href = `javascript:void(0)`;
         btnLink.innerHTML = `<span>Більше</span>`;
         btnWrapper.appendChild(btnLink);
 
@@ -166,11 +166,14 @@ function renderEmployeeCards(employees) {
         card.appendChild(btnWrapper);
 
         container.appendChild(card);
+
+        btnLink.addEventListener("click", () => {
+            readEmployeeById( employee.id);
+        })
     });
 }
 
 readAllEmployee();
 
-readAllEmployee();
 
 

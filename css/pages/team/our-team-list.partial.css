@@ -1,94 +1,115 @@
+.our-team {
+  position: relative;
+}
+
 .our-team__container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+}
+
+.our-team__card {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 600px) {
+  .our-team__container {
+    gap: 40px;
   }
-    .our-team__card {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-  
-  @media (min-width: 600px) {
-    .our-team__container {
-      gap: 40px;
-    }
-    .our-team__card {
-      flex: 1 1 calc(50% - 40px);
-      max-width: calc(50% - 40px);
-    }
-  }
-  
-  @media (min-width: 1150px) {
-    .our-team__container {
-      gap: 50px;
-    }
-    .our-team__card {
-      flex: 1 1 calc(33.333% - 50px);
-      max-width: calc(33.333% - 50px);
-    }
-  }
-  
-  
+
   .our-team__card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 20px;
-    background: var(--light-background-color);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* м'яка тінь */
-    transition: transform var(--atimations-time) ease, box-shadow var(--atimations-time) ease;
+    flex: 1 1 calc(50% - 40px);
+    max-width: calc(50% - 40px);
   }
-  .our-team__card:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* глибша тінь при наведенні */
-    transition:  box-shadow var(--atimations-time) ease;
+}
 
+@media (min-width: 1150px) {
+  .our-team__container {
+    gap: 50px;
   }
 
-.our-team__person-photo form input{
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    object-position: 50% 30%;
-    border-radius: 50%;
-}  
+  .our-team__card {
+    flex: 1 1 calc(33.333% - 50px);
+    max-width: calc(33.333% - 50px);
+  }
+}
+
+.our-team__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: var(--light-background-color);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  /* м'яка тінь */
+  transition: transform var(--atimations-time) ease, box-shadow var(--atimations-time) ease;
+}
+
+.our-team__card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  /* глибша тінь при наведенні */
+  transition: box-shadow var(--atimations-time) ease;
+}
+
+.our-team__person-photo form input {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: 50% 30%;
+  border-radius: 50%;
+}
+
 .our-team__person-info {
-    position: relative;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.our-team__person-info, .our-team__person-info form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+.our-team__person-info form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.our-team__container form input, .our-team__container button {
-    border: none;
-    background: none;
+
+.our-team__container form input,
+.our-team__container button {
+  border: none;
+  background: none;
 }
+
 .our-team__person-info .title {
-    font-size: 22px;
+  font-size: 22px;
 }
+
 .form-group input {
-    width: fit-content;
-    text-align: center;
+  width: fit-content;
+  text-align: center;
 }
+
 .form-group input:focus {
   outline: none;
 }
+
 .our-team__person-info .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
+
 .our-team__person-contacts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
+
 .contact-icon {
   display: flex;
   flex-direction: row;
@@ -96,28 +117,170 @@
   justify-content: center;
   gap: 10px;
 }
-.contact-icon a{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--dark-border-color);
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    filter: none;
-    transition: all var(--atimations-time) ease;
-}
-.contact-icon a:hover{
-    filter: var(--filter-to-make-accent-color);
-    transition: all var(--atimations-time) ease;
 
+.contact-icon a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--dark-border-color);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  filter: none;
+  transition: all var(--atimations-time) ease;
 }
+
+.contact-icon a:hover {
+  filter: var(--filter-to-make-accent-color);
+  transition: all var(--atimations-time) ease;
+}
+
 .contact-icon a img {
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 }
+
 .our-team__person-info .btn-wrapper-dark {
-    width: fit-content;
-    margin: auto;
+  width: fit-content;
+  margin: auto;
+}
+
+
+
+.our-team__read-by-id-container {
+  display: flex;
+  min-width: 100%;
+  /* Використовуємо всю ширину екрану */
+  min-height: 100%;
+  /* Використовуємо всю висоту екрану */
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  z-index: 50;
+  overflow: auto;
+  background: url(/img/backgrounds/line-background.svg) 0 0 / cover no-repeat;
+}
+
+.our-team__read-by-id-container .wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+}
+
+.our-team-card__person-info,
+.our-team-card__person-photo {
+  width: 40%;
+}
+
+.our-team-card__person-photo {
+  object-fit: cover;
+  height: 400px;
+  object-position: 50% 30%;
+}
+
+.our-team__read-by-id-container .close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+}
+
+.our-team__read-by-id-container input {
+  border: none;
+  background: none;
+}
+
+/* Звернення до другої .form-group */
+.our-team__person-info form .form-group:nth-of-type(2) {
+  display: none;
+  flex-direction: column;
+}
+
+.our-team__person-info form .form-group:nth-of-type(2) input:nth-of-type(1) {}
+
+.person-info__department-and-position {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.person-info__department-and-position p:nth-of-type(1),
+.person-info__department-and-position p:nth-of-type(3) {
+  flex: 2;
+  text-align: center;
+  align-self: center;
+}
+
+.person-info__department-and-position p:nth-of-type(2) {
+  width: 1px;
+  transform: scaleX(0.5);
+  height: auto;
+  background: var(--accent-text-color);
+}
+
+.quote-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.quote-container p {
+  padding: 20px;
+  font-style: italic;
+}
+
+.quote-container p:nth-of-type(1) {
+  position: relative;
+}
+
+.quote-container p:nth-of-type(1)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  /* базова висота */
+  background-color: var(--accent-text-color);
+  transform: scaleY(0.5);
+  /* робимо тоншим */
+  transform-origin: center;
+}
+
+.quote-container p:nth-of-type(2) {
+  margin-top: 10px;
+  position: relative;
+}
+.quote-container p:nth-of-type(2)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px; /* тонка лінія */
+  height: 100%; /* по всій висоті параграфа */
+  background-color: var(--accent-text-color);
+  transform: scaleX(0.5); /* тонше на око */
+  transform-origin: center;
+}
+.quote-container__decor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.quote-container__line {
+  height: 1px;
+  transform: scaleY(0.5);
+
+  background: var(--accent-text-color);
+  flex: 1;
+}
+
+.quote-container__decor img {
+  width: 25px;
+  height: auto;
+  margin: 0 10px;
 }

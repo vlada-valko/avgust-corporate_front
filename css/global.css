@@ -60,7 +60,7 @@ h3 {
 @media(min-width:1000px) {
     .wrapper {
         width: 80%;
-        margin: auto;
+        margin: 0 auto;
         padding: 0;
     }
 }
