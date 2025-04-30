@@ -190,7 +190,18 @@ function renderEmployeeById(employee) {
 
 }
 
-
-function resizeInput(input) {
-    input.style.width = (input.value.length + 1) + 'ch'; // Кількість символів, плюс додаткове місце
+function saveToJSON() {
+    const editableText = document.getElementById('editableText').innerText; // отримуємо редагований текст
+    const jsonData = {
+      content: editableText
+    };
+  
+    // Для демонстрації виведемо в консоль
+    console.log(JSON.stringify(jsonData));
+  
+    // Тепер можна зберегти jsonData в локальному сховищі, на сервері, чи куди необхідно
   }
+  document.getElementById("saveToJSON").addEventListener("click", () => {
+    saveToJSON();
+  })
+  
