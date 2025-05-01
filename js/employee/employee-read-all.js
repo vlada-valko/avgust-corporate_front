@@ -1,6 +1,6 @@
-import { readEmployeeById } from "./employee-read-by-id.js";
+// import { readEmployeeById } from "./js/employee/employee-read-by-id.js";
 
-async function readAllEmployee() {
+export async function readAllEmployee() {
     try {
         const token = localStorage.getItem("jwt-token");
         const response = await fetch("http://localhost:8080/employees/all", {
@@ -14,15 +14,16 @@ async function readAllEmployee() {
             throw new Error(`Помилка завантаження даних: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log(data);
         renderEmployeeCards(data.employees);
+        return data; 
     } catch (error) {
         console.error(error);
+        return [];
     }
 }
 
 function renderEmployeeCards(employees) {
-    const container = document.querySelector(".our-team__container");
+    const container = document.querySelector(".employee-list__container");
     container.innerHTML = "";
 
     if (!employees || employees.length === 0) {
@@ -32,146 +33,131 @@ function renderEmployeeCards(employees) {
 
     employees.forEach(employee => {
         const card = document.createElement("div");
-        card.classList.add("our-team__card");
+        card.classList.add("employee-list__item");
 
-        // Photo Wrapper
-        const photoWrapper = document.createElement("div");
-        photoWrapper.classList.add("our-team__person-photo");
+        // Photo
+        const photoContainer = document.createElement("div");
+        photoContainer.classList.add("employee-list__item-photo-container");
 
-        const photoForm = document.createElement("form");
-        const photoInput = document.createElement("input");
-        photoInput.type = "image";
-        photoInput.id = "image";
-        photoInput.alt = "photo";
-        const base64Data = employee.photo;
-        photoInput.src = base64Data !== null ? 
-          `data:image/jpeg;base64,${base64Data}` 
-          :  "/img/team/default.jpg"; 
-        photoInput.style = "pointer-events: none; cursor: default";
-        photoForm.appendChild(photoInput);
-        photoWrapper.appendChild(photoForm);
+        const photo = document.createElement("img");
+        photo.classList.add("employee-list__item-photo");
+        photo.alt = "";
+        photo.src = employee.photo 
+            ? `data:image/jpeg;base64,${employee.photo}` 
+            : "/img/team/default.jpg";
+
+        photoContainer.appendChild(photo);
 
         // Info Wrapper
         const infoWrapper = document.createElement("div");
-        infoWrapper.classList.add("our-team__person-info");
+        infoWrapper.classList.add("employee-list__item-info");
 
-        const infoForm = document.createElement("form");
+        // Full Name
+        const fullName = document.createElement("div");
+        fullName.classList.add("employee-list__item-full-name");
 
-        const nameGroup = document.createElement("div");
-        nameGroup.classList.add("form-group");
+        const firstName = document.createElement("p");
+        firstName.classList.add("employee-list__item-first-name", "title");
+        firstName.innerText = employee.firstName || "Без імені";
 
-        const lastNameInput = document.createElement("input");
-        lastNameInput.type = "text";
-        lastNameInput.id = "lastName";
-        lastNameInput.value = employee.lastName || "Без прізвища";
-        lastNameInput.classList.add("title");
-        lastNameInput.readOnly = true;
+        const lastName = document.createElement("p");
+        lastName.classList.add("employee-list__item-last-name", "title");
+        lastName.innerText = employee.lastName || "Без прізвища";
 
-        const firstNameInput = document.createElement("input");
-        firstNameInput.type = "text";
-        firstNameInput.id = "firstName";
-        firstNameInput.value = employee.firstName || "Без імені";
-        firstNameInput.classList.add("title");
-        firstNameInput.readOnly = true;
+        const middleName = document.createElement("p");
+        middleName.classList.add("employee-list__item-middle-name", "title");
+        middleName.innerText = employee.middleName || "Без по батькові";
 
-        const middleNameInput = document.createElement("input");
-        middleNameInput.type = "text";
-        middleNameInput.id = "middleName";
-        middleNameInput.value = employee.middleName || "Без по батькові";
-        middleNameInput.classList.add("title");
-        middleNameInput.readOnly = true;
+        fullName.append(firstName, lastName, middleName);
 
-        nameGroup.appendChild(lastNameInput);
-        nameGroup.appendChild(firstNameInput);
-        nameGroup.appendChild(middleNameInput);
+        // Position and Experience
+        const posExp = document.createElement("div");
+        posExp.classList.add("employee-list__item-postion-and-expirience");
 
-        const positionGroup = document.createElement("div");
-        positionGroup.classList.add("form-group");
+        const position = document.createElement("p");
+        position.classList.add("employee-list__item-position", "main-text");
+        position.innerText = employee.position || "Не вказано";
 
-        const positionInput = document.createElement("input");
-        positionInput.type = "text";
-        positionInput.id = "position";
-        positionInput.value = employee.position || "Не вказано";
-        positionInput.classList.add("main-text");
-        positionInput.readOnly = true;
+        const experience = document.createElement("p");
+        experience.classList.add("employee-list__item-expirience", "main-text");
+        if (employee.employmentStartDate) {
+            const startDate = new Date(employee.employmentStartDate).getTime();
+            const diff = Date.now() - startDate;
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            experience.innerText = `${years} роки досвіду`;
+        } else {
+            experience.innerText = "Не вказано";
+        }
 
-        const experienceInput = document.createElement("input");
-        experienceInput.type = "text";
-        experienceInput.id = "experience";
-        const experience = Date.now() - new Date(employee.employmentStartDate).getTime();
-        const yearsExperience = experience / (1000 * 60 * 60 * 24 * 365.25);    
-        experienceInput.value =  employee.employmentStartDate === null 
-        ? "Не вказано" 
-        : (Math.floor(yearsExperience)) + " роки досвіду";
-        experienceInput.classList.add("main-text");
-        experienceInput.readOnly = true;
+        posExp.append(position, experience);
 
-        positionGroup.appendChild(positionInput);
-        positionGroup.appendChild(experienceInput);
+        // Contacts
+        const contacts = document.createElement("div");
+        contacts.classList.add("employee-list__item-contacts");
 
-        infoForm.appendChild(nameGroup);
-        infoForm.appendChild(positionGroup);
+        const phone = document.createElement("div");
+        phone.classList.add("employee-list__item-phone");
 
-        infoWrapper.appendChild(infoForm);
+        const phoneDecor = document.createElement("div");
+        phoneDecor.classList.add("employee-list__item-decor");
+        const phoneImg = document.createElement("img");
+        phoneImg.src = "/img/call.png";
+        phoneImg.alt = "";
+        phoneDecor.appendChild(phoneImg);
 
-        // Contact Wrapper
-        const contactWrapper = document.createElement("div");
-        contactWrapper.classList.add("our-team__person-contacts");
+        const phoneLink = document.createElement("a");
+        phoneLink.classList.add("main-text");
+        phoneLink.href = employee.personalMobile 
+            ? `tel:${employee.personalMobile}` 
+            : "#";
+        phoneLink.innerText = employee.personalMobile || "Телефон не вказано";
 
-        // Phone Icon
-        const callIcon = document.createElement("div");
-        callIcon.classList.add("contact-icon");
-        const callLink = document.createElement("a");
-        callLink.href = "tel:" + employee.personalMobile;  // Додаємо номер телефону
-        const callImg = document.createElement("img");
-        callImg.src = "/img/call.png";
-        callImg.alt = "call";
-        callLink.title = `Телефон: ${employee.personalMobile || "не вказано"}`;
-        callLink.appendChild(callImg);
-        const callText = document.createElement("span");
-        callText.innerText = employee.personalMobile || "Телефон не вказано";  // Текст для телефону
-        callIcon.appendChild(callLink);
-        callIcon.appendChild(callText);
+        phone.append(phoneDecor, phoneLink);
 
-        // Email Icon
-        const emailIcon = document.createElement("div");
-        emailIcon.classList.add("contact-icon");
-        const emailLink = document.createElement("a");
-        emailLink.href = `mailto:${employee.personalEmail}`;  // Додаємо email
+        const email = document.createElement("div");
+        email.classList.add("employee-list__item-email");
+
+        const emailDecor = document.createElement("div");
+        emailDecor.classList.add("employee-list__item-decor");
         const emailImg = document.createElement("img");
         emailImg.src = "/img/email.png";
-        emailImg.alt = "email";
-        emailLink.appendChild(emailImg);
-        const emailText = document.createElement("span");
-        emailText.innerText = employee.personalEmail || "Email не вказано";  // Текст для email
-        emailText.title = `Пошта: ${employee.personalEmail || "не вказано"}`;
-        emailIcon.appendChild(emailLink);
-        emailIcon.appendChild(emailText);
+        emailImg.alt = "";
+        emailDecor.appendChild(emailImg);
 
-        contactWrapper.appendChild(callIcon);
-        contactWrapper.appendChild(emailIcon);
+        const emailLink = document.createElement("a");
+        emailLink.classList.add("main-text");
+        emailLink.href = employee.personalEmail 
+            ? `mailto:${employee.personalEmail}` 
+            : "#";
+        emailLink.innerText = employee.personalEmail || "Email не вказано";
 
-        // Button Wrapper
+        email.append(emailDecor, emailLink);
+        contacts.append(phone, email);
+
+        // Append all to infoWrapper
+        infoWrapper.append(fullName, posExp, contacts);
+
+        // Button
         const btnWrapper = document.createElement("div");
         btnWrapper.classList.add("btn-wrapper-dark");
+
         const btnLink = document.createElement("a");
-        btnLink.href = `javascript:void(0)`;
-        btnLink.innerHTML = `<span>Більше</span>`;
+        btnLink.href = "javascript:void(0)";
+        btnLink.innerHTML = "<span>Детальніше</span>";
+
         btnWrapper.appendChild(btnLink);
 
-        // Add elements to card
-        card.appendChild(photoWrapper);
-        card.appendChild(infoWrapper);
-        card.appendChild(contactWrapper);
-        card.appendChild(btnWrapper);
-
+        // Assemble the card
+        card.append(photoContainer, infoWrapper, btnWrapper);
         container.appendChild(card);
 
+        // Add click event
         btnLink.addEventListener("click", () => {
-            readEmployeeById( employee.id);
-        })
+            readEmployeeById(employee.id);
+        });
     });
 }
+
 
 readAllEmployee();
 

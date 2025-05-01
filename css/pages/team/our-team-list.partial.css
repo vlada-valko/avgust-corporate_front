@@ -1,0 +1,130 @@
+
+.employee-list__container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 30px;
+  justify-items: center; 
+  padding: 20px;
+}
+
+@media (min-width: 600px) {
+  .employee-list__container {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .employee-list__container {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.employee-list__item {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 15px;
+  background: var(--light-background-color);
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  border-radius: 12px;
+}
+
+.employee-list__item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+.employee-list__item-photo-container {
+  width: 50%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.employee-list__item-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.employee-list__item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.employee-list__item-full-name .title {
+  font-size: 20px;
+}
+.employee-list__item .main-text {
+font-weight: 400;}
+
+.employee-list__item-postion-and-expirience {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-transform: lowercase;
+}
+
+.employee-list__item-position,
+.employee-list__item-expirience {
+  flex: 1;
+  font-size: 16px;
+}
+
+.employee-list__item-position {
+  text-align: right;
+  position: relative;
+}
+.employee-list__item-position::after {
+  position: absolute;
+  content: "";
+  width: 1px;
+  transform: scaleX(0.5);
+  height: 50%;
+  background-color: var(--main-text-dark-color);
+  top: 25%;
+  right: -10px;
+}
+.employee-list__item-expirience {
+  text-align: left;
+}
+.employee-list__item-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.employee-list__item-phone, .employee-list__item-email {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.employee-list__item-decor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--dark-border-color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.employee-list__item-decor img{
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+  display: block;
+}

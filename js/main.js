@@ -20,7 +20,12 @@ async function loadScripts() {
         /*EMPLOYEE*/
         await import("./employee/employee-mapping.js");
         await import("./employee/employee-read-all.js");
-        await import("./employee/employee-create.js");
+        console.log("NN")
+
+        await import("./employee");
+                // await import("./employee/employee-create.js");
+        // console.log("start")
+
         await import("./employee/employee-read-by-id.js");
         await import("./employee/employee-delete.js");
     /*DEPARTMENTS*/
