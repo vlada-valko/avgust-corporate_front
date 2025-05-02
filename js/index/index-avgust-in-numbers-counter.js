@@ -1,13 +1,32 @@
-// Захардкоджене значення кількості співробітників та клієнтів
-const HARDCODED_EMPLOYEES = 34;
 const HARDCODED_CLIENTS = 5000;
+export async function getEmployeeCount() {
+try {
+    const response = await fetch("http://localhost:8080/employees/get-employee-count", {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Помилка завантаження даних: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data.employeeCount;  
 
-// Встановлюємо кількість працівників у .emp-counter
+} catch (error) {
+    console.error(error);
+    return [];
+}
+}
 const empCounter = document.querySelector(".emp-counter");
 if (empCounter) {
-    empCounter.dataset.count = HARDCODED_EMPLOYEES;
-    animateCounter(empCounter, HARDCODED_EMPLOYEES);
+    getEmployeeCount().then(count => {
+        empCounter.dataset.count = count;
+        animateCounter(empCounter, count);  // Використовуємо count, отриманий із сервера
+    });
 }
+
+
 
 // Встановлюємо кількість клієнтів у .client-counter (з "+")
 const clientCounter = document.querySelector(".client-counter");

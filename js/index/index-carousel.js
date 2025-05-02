@@ -34,7 +34,6 @@ $(window).on('load resize', function() {
     initSlick();
 });
 
-// Викликаємо initSlick після повного завантаження сторінки
 $(document).ready(function() {
     initSlick();
 });
@@ -44,7 +43,6 @@ const slider = document.querySelector('.index-our-values__slider');
 if (slider) {
     const styles = window.getComputedStyle(slider);
     const maxSliderHeight = styles.getPropertyValue('--max-slider-height');
-    console.log("Максимальна висота слайдера:", maxSliderHeight);
 } else {
 }
 

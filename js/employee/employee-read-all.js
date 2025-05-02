@@ -1,5 +1,10 @@
 // import { readEmployeeById } from "./js/employee/employee-read-by-id.js";
 
+
+const listContainer = document.getElementById('employee-list');
+if (listContainer && employeeContainer) {
+    readAllEmployee();
+}
 export async function readAllEmployee() {
     try {
         const token = localStorage.getItem("jwt-token");
@@ -34,6 +39,7 @@ function renderEmployeeCards(employees) {
     employees.forEach(employee => {
         const card = document.createElement("div");
         card.classList.add("employee-list__item");
+        card.id = employee.id;
 
         // Photo
         const photoContainer = document.createElement("div");
@@ -159,7 +165,7 @@ function renderEmployeeCards(employees) {
 }
 
 
-readAllEmployee();
+
 
 
 
