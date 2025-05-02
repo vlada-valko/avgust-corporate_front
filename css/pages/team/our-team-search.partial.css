@@ -1,0 +1,71 @@
+.elastic li {
+    transition: all ease 500ms;
+  }
+  .elastic a {
+    text-decoration: none;
+    color: var(--dark-text-color);
+  }
+  .elastic a:hover {
+    text-decoration:underline;
+    color: var(--dark-text-color);
+  }
+  
+  .elastic.hide {
+    display: none;
+  }
+  
+  .button-success a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .active-search-card {
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);}
+  
+  .hide {
+    display: none;
+  }
+  
+  .search-line-container {
+    display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  }
+ .search-line-container-input {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 1px solid var(--dark-border-color);
+    background: var(--light-background-color);
+ }
+ .search-line-container-input  input {
+    flex: 1;
+    border: none;
+    background: var(--light-background-color);
+
+ }
+ .clear-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    overflow: hidden;
+    transition: transform ease-in-out var(--atimations-time);
+    transform-origin: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .clear-button:hover {
+    transform: rotate(270deg);
+  }
+  
+  .clear-button img {
+    width: 70%;
+    height: 70%;
+    object-fit: cover;
+    display: block;
+  }
