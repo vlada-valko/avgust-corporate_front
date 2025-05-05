@@ -31,12 +31,13 @@
   flex-direction: column;
   align-items: start;
   width: 100%;
+  gap: 5px;
+  margin: 20px 0;
   }
  .search-line-container-input {
     display: flex;
     flex-direction: row;
     width: 100%;
-    border: 1px solid var(--dark-border-color);
     background: var(--light-background-color);
  }
  .search-line-container-input  input {
@@ -57,6 +58,7 @@
     align-items: center;
     justify-content: center;
     padding: 0;
+    opacity: 0.5;
   }
   
   .clear-button:hover {

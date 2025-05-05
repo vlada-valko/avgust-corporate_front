@@ -90,7 +90,7 @@ function renderEmployeeCards(employees) {
             const startDate = new Date(employee.employmentStartDate).getTime();
             const diff = Date.now() - startDate;
             const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-            experience.innerText = `${years} роки досвіду`;
+            experience.innerText = `${years} р. досвіду`;
         } else {
             experience.innerText = "Не вказано";
         }

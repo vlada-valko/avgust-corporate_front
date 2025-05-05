@@ -3,3 +3,8 @@
 @import url(our-team-person-card.partial.css);
 @import url(our-team-search.partial.css);
 
+
+
+.our-team {
+    position: relative;
+}
