@@ -22,12 +22,12 @@ gap: 30px;
 .set img {
     width: 20px;
     transform: rotate(180deg);
-    transition: all ease-in-out var(--atimations-time);
+    transition: all ease-in-out var(--animation-time);
 }
 
 .set img.accordeon-open {
     transform: none;
-    transition: all ease-in-out var(--atimations-time);
+    transition: all ease-in-out var(--animation-time);
 }
 .content iframe{
 width: 100%;

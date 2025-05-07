@@ -52,7 +52,7 @@
     border: none;
     background: none;
     overflow: hidden;
-    transition: transform ease-in-out var(--atimations-time);
+    transition: transform ease-in-out var(--animation-time);
     transform-origin: center;
     display: flex;
     align-items: center;

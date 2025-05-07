@@ -1,3 +1,4 @@
+
 async function loadScripts() {
 
   try {
@@ -49,6 +50,16 @@ try {
 
 //EMPLOYEE
 try {
+  await import("./employee/employee-read-all.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту ./employee/employee-read-all.js:", err);
+}
+try {
+  await import("./employee/employee-mapping.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту ./employee/employee-mapping.js:", err);
+}
+try {
   await import("./employee/employee-create.js");
 } catch (err) {
   console.error("❌ Помилка під час імпорту ./employee/employee-create.js:", err);
@@ -58,16 +69,7 @@ try {
 } catch (err) {
   console.error("❌ Помилка під час імпорту ./employee/employee-delete.js:", err);
 }
-try {
-  await import("./employee/employee-mapping.js");
-} catch (err) {
-  console.error("❌ Помилка під час імпорту ./employee/employee-mapping.js:", err);
-}
-try {
-  await import("./employee/employee-read-all.js");
-} catch (err) {
-  console.error("❌ Помилка під час імпорту ./employee/employee-read-all.js:", err);
-}
+
 try {
   await import("./employee/employee-read-by-id.js");
 } catch (err) {
@@ -86,7 +88,6 @@ try {
 } catch (err) {
   console.error("❌ Помилка під час імпорту ./additional-js/documents-view-accordeon.js:", err);
 }
-
   } catch (error) {
   }
 }
@@ -104,3 +105,16 @@ if (totalPartials > 0) {
 } else {
   loadScripts();
 }
+
+window.addEventListener("load", () => {
+  const hash = window.location.hash;
+  if (hash) {
+    setTimeout(() => {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 500); 
+  }
+});
+

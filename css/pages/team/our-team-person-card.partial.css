@@ -1,9 +1,244 @@
 .our-team-person-card-container {
+    display: none;
+    opacity: 0;
+    transition: all ease-in-out var(--animation-time);
+  }
+.our-team-person-card-container.visible {
+    display: block;
     position: absolute;
     top: var(--header-height);
     left: 0;
     width: 100%;
-    height: 100%;
-    background: url(/img/backgrounds/line-background.svg) 0 0 / cover no-repeat;
+    min-height: 100vh;
+    background: url(/img/backgrounds/line-background.svg) center / cover no-repeat;
     z-index: 10;
-}
+    padding: 30px 20px;
+    opacity: 1;
+    transition: all ease-in-out var(--animation-time);
+  }
+  
+  .our-team-person-card-container .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  @media (min-width: 1150px) {
+    .our-team-person-card-container .wrapper {
+      flex-direction: row-reverse;
+      align-items: stretch;
+      justify-content: space-between;
+      position: relative;
+    }
+  }
+  
+  .employee-card__photo-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  
+  .employee-card__photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  @media (min-width: 1150px) {
+    .employee-card__photo-container {
+      width: 40%;
+      border-radius: 0;
+      aspect-ratio: unset;
+      height: auto;
+      display: flex;
+      align-items: center;
+    }
+  
+    .employee-card__photo-container img {
+      height: 80%;
+    }
+  }
+  
+  .employee-card__info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  @media (min-width: 1150px) {
+    .employee-card__info-container {
+      width: 60%;
+    }
+  }
+  
+  .employee-card__full-name {
+    text-align: center;
+  }
+  
+  .employee-card__department-and-position {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    text-transform: lowercase;
+  }
+  
+  .employee-card__separator {
+    width: 1px;
+    background: var(--main-text-dark-color);
+  }
+  
+  .employee-card__quote-container {
+    position: relative;
+    border-top: 1px solid var(--accent-text-color);
+    border-bottom: 1px solid var(--accent-text-color);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .employee-card__quote-container img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35px;
+  }
+  
+  .employee-card__quote-text {
+    font-style: italic;
+    text-align: center;
+    width: 70%;
+  }
+  
+  .employee-card__inspiration {
+    border-left: 1px solid var(--accent-text-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .employee-card__inspiration-question {
+    font-weight: 500;
+    width: 60%;
+    text-align: center;
+  }
+  
+  .employee-card__inspiration-answer {
+    font-style: italic;
+    width: 60%;
+    text-align: left;
+  }
+  
+  .employee-card__details {
+    display: grid;
+    grid-template-columns:  1fr;
+    gap: 20px;
+    justify-items: start;
+  }
+  
+  @media (min-width: 1150px) {
+    .employee-card__details {
+        grid-template-columns: auto 1fr;
+    }
+  }
+  
+  .employee-card__workplace-type,
+  .employee-card__experiense,
+  .employee-card__birthday {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+  }
+  
+  .employee-card__address {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .employee-card__address .address-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .employee-card__contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (min-width: 1150px) {
+    .employee-card__contacts {
+      flex-direction: row;
+    }
+  }
+  
+  .employee-card__mobile,
+  .employee-card__email {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .employee-card__mobile > div:not(.icon),
+  .employee-card__email > div:not(.icon) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .employee-card__resources,
+  .employee-card__admin-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  @media (min-width: 1150px) {
+    .employee-card__resources,
+    .employee-card__admin-panel {
+      flex-direction: row;
+    }
+  }
+  
+  .close-btn button {
+    background: none;
+    border: none;
+    width: 30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  @media(min-width:1150px) {
+    .close-btn button {
+        top: 0;
+        right: 0;
+      }
+  }
+  
+  .close-btn button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+  }
+  

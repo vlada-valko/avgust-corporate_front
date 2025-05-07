@@ -95,7 +95,7 @@ h3 {
 
 
     /* OTHER */
-    --atimations-time: 0.3s;
+    --animation-time: 0.3s;
     --filter-to-make-accent-color: invert(63%) sepia(84%) saturate(600%) hue-rotate(-10deg);
     --header-height: 60px;
 }
@@ -275,20 +275,21 @@ h3 {
     }
 }
 /* #endregion */
-.card-circle {
+.icon {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     margin: auto;
     background: var(--grey-background-color);
   }
   
-  .card-circle img {
+  .icon img {
     width: 65%;
     height: auto;
-  }
+    filter: brightness(0) invert(1);
+}
   
