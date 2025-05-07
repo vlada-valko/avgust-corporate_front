@@ -1,4 +1,4 @@
-import { readEmployeeById } from "./js/employee/employee-read-by-id.js";
+import { readEmployeeById } from "./employee-read-by-id.js";
 
 
 const listContainer = document.getElementById('employee-list');
@@ -160,31 +160,11 @@ function renderEmployeeCards(employees) {
         // Add click event
         btnLink.addEventListener("click", () => {
             readEmployeeById(employee.id);
+            console.log(employee.id)
+            document.querySelector(".our-team-person-card-container").classList.add("visible")
         });
     });
 }
-
-const buttons = document.querySelectorAll(".employee-list__item .btn-wrapper-dark");
-const personCard = document.querySelector(".our-team-person-card-container");
-const closeBtn = document.querySelector(".our-team-person-card-container .close-btn");
-if (personCard && buttons.length > 0) {
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        personCard.classList.add("visible");
-        readEmployeeById(id)
-      });
-    });
-
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        personCard.classList.remove("visible");
-      });
-    } else {
-      console.error("Кнопка закриття не знайдена.");
-    }
-  } else {
-    console.error("Елемент не знайдений.");
-  }
 
 
 
