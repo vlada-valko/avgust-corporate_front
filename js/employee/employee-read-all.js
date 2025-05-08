@@ -160,10 +160,12 @@ function renderEmployeeCards(employees) {
         // Add click event
         btnLink.addEventListener("click", () => {
             readEmployeeById(employee.id);
-            console.log(employee.id)
             document.querySelector(".our-team-person-card-container").classList.add("visible")
         });
     });
+    if(localStorage.getItem("userRole") === "ROLE_ADMIN" || localStorage.getItem("userRole") === "ROLE_MANAGER") {
+        document.getElementById("create-new-employee-btn").style.display = "flex";
+    }
 }
 
 

@@ -12,7 +12,6 @@ export async function readEmployeeById(id) {
             throw new Error(`Помилка завантаження даних: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log(data)
         renderEmployeeCard(data);
         return data; 
     } catch (error) {

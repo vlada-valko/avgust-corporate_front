@@ -82,7 +82,7 @@ try {
 }
 
 
-//ADITIONAL CSS
+//ADITIONAL 
 try {
   await import("./additional-js/documents-view-accordeon.js");
 } catch (err) {

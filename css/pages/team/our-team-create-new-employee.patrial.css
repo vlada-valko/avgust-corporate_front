@@ -1,0 +1,11 @@
+.create-new-employee__container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 500px;
+    height: 500px;
+    top: calc(var(--header-height) + 50px);
+    left: 50%;
+    transform: translateX(-50%);
+}

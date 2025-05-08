@@ -1,4 +1,4 @@
-const employeeFieldMapping = {
+export const employeeFieldMapping = {
     "lastName": "Прізвище",
     "firstName": "Ім’я",
     "middleName": "По батькові",
