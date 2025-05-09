@@ -1,11 +1,77 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Полупрозоре затемнення */
+    display: none;
+    /* Приховане за замовчуванням */
+    z-index: 999;
+    /* Оверлей має бути поверх контенту, але під модальним вікном */
+}
 .create-new-employee__container {
+    display: none;
+}
+.create-new-employee__container.visible {
     position: absolute;
     display: flex;
     flex-direction: column;
-    background: white;
+    gap: 10px;
+    align-items: center;
     width: 500px;
-    height: 500px;
     top: calc(var(--header-height) + 50px);
     left: 50%;
     transform: translateX(-50%);
+    padding: 40px;
+    background: var(--light-gradient-background);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
 }
+.create-new-employee__container .title {
+    font-size: 20px;
+    text-align: center;
+}
+.form-field:not(.address-field) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+.form-field input,
+.form-field select {
+    border: 1px solid var(--dark-border-color);
+}
+.form-field #photo {
+    border: none;
+}
+.form-field.address-field{
+    display: flex;
+    flex-direction: column;
+}
+.create-new-employee__create-employee {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.create-new-employee__container .close-btn button{
+position: absolute;
+top: -50px;
+right: -40px;
+width: 25px;
+height: 25px;
+transition: transform ease-in-out var(--animation-time);
+}
+.create-new-employee__container .close-btn button:hover{
+    position: absolute;
+    top: -50px;
+    right: -40px;
+    width: 25px;
+    height: 25px;
+    transform: rotate(180deg);
+    transition: transform ease-in-out var(--animation-time);
+    
+    }

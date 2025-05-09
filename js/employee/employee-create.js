@@ -1,4 +1,3 @@
-
 import { employeeFieldMapping } from './employee-mapping.js';
 
 export async function getCreateUserAndEmployeeForms() {
@@ -15,21 +14,33 @@ export async function getCreateUserAndEmployeeForms() {
             throw new Error(`Помилка завантаження даних: ${response.statusText}`);
         }
         const data = await response.json();
-        createEmployeeForm(data.createEmployeeForm);
-        console.log(data.createEmployeeForm)
-        return data; 
+        createEmployeeForm(data);
+        return data;
     } catch (error) {
         console.error(error);
         return [];
     }
 }
-getCreateUserAndEmployeeForms();
-
 function createEmployeeForm(data) {
+    document.querySelector(".create-new-employee__container").classList.add("visible");
     const formContainer = document.querySelector(".create-new-employee__create-employee");
-    formContainer.innerHTML = ""; // очищаємо контейнер перед рендером
+    formContainer.innerHTML = "";
 
-    for (const field in data) {
+    // Додаємо кнопку закриття
+    const closeBtnWrapper = document.createElement("div");
+    closeBtnWrapper.className = "close-btn";
+    closeBtnWrapper.innerHTML = `
+        <button>
+            <img src="/img/close.png" alt="close-cross">
+        </button>
+    `;
+    formContainer.appendChild(closeBtnWrapper);
+    closeBtnWrapper.addEventListener("click", () => {
+        document.querySelector(".create-new-employee__container").classList.remove("visible");
+    })
+
+    // Рендеримо поля форми
+    for (const field in data.createEmployeeForm) {
         if (!employeeFieldMapping[field]) continue;
 
         const fieldWrapper = document.createElement("div");
@@ -37,7 +48,34 @@ function createEmployeeForm(data) {
 
         const label = document.createElement("label");
         label.htmlFor = field;
+        label.classList.add("main-text");
         label.textContent = employeeFieldMapping[field];
+
+        const selectFields = {
+            department: data.departments,
+            position: data.positions,
+            workplaceType: data.workplaceTypes,
+            gender: data.genders,
+            role: data.roles
+        };
+
+        if (selectFields[field]) {
+            const select = document.createElement("select");
+            select.id = field;
+            select.name = field;
+
+            selectFields[field].forEach(optionValue => {
+                const option = document.createElement("option");
+                option.value = optionValue;
+                option.textContent = optionValue;
+                select.appendChild(option);
+            });
+
+            fieldWrapper.appendChild(label);
+            fieldWrapper.appendChild(select);
+            formContainer.appendChild(fieldWrapper);
+            continue;
+        }
 
         const input = document.createElement("input");
         input.id = field;
@@ -49,30 +87,26 @@ function createEmployeeForm(data) {
             field.includes("Mobile") || field === "internalPhone" || field === "corporateMobile" ? "tel" :
             "text";
 
-        // Для телефонів додаємо маску
         if (input.type === "tel") {
             input.pattern = "\\(\\d{3}\\)-\\d{3}-\\d{2}-\\d{2}";
             const mask = new Inputmask("(999)-999-99-99");
             mask.mask(input);
         }
 
-        // Для email використовуємо маску Inputmask
         if (input.type === "email") {
             const mask = new Inputmask("email");
             mask.mask(input);
         }
 
-        // Створюємо блок для адреси тільки один раз
         if (field === "residentialAddress") {
             const addressWrapper = document.createElement("div");
-            addressWrapper.className = "form-field";
+            addressWrapper.className = "form-field address-field";
 
-            // Створюємо лейбл для адреси
             const addressLabel = document.createElement("label");
             addressLabel.htmlFor = "address";
+            addressLabel.classList.add("main-text");
             addressLabel.textContent = "Адреса:";
 
-            // Окремі інпути для кожної частини адреси
             const addressFields = [
                 { id: "country", placeholder: "Країна" },
                 { id: "city", placeholder: "Місто" },
@@ -81,22 +115,31 @@ function createEmployeeForm(data) {
                 { id: "apartmentNumber", placeholder: "Квартира" },
             ];
 
-            // Створюємо інпути для кожної частини адреси
-            addressFields.forEach(field => {
-                const input = document.createElement("input");
-                input.id = field.id;
-                input.name = field.id;
-                input.placeholder = field.placeholder;
-                input.type = "text";
-                addressWrapper.appendChild(input);
+            addressFields.forEach(subField => {
+                const subInput = document.createElement("input");
+                subInput.id = subField.id;
+                subInput.name = subField.id;
+                subInput.placeholder = subField.placeholder;
+                subInput.type = "text";
+                addressWrapper.appendChild(subInput);
             });
 
-            formContainer.appendChild(addressLabel); // додаємо лейбл для адреси
-            formContainer.appendChild(addressWrapper); // додаємо блок з інпутами для адреси
+            formContainer.appendChild(addressLabel);
+            formContainer.appendChild(addressWrapper);
         } else {
             fieldWrapper.appendChild(label);
             fieldWrapper.appendChild(input);
             formContainer.appendChild(fieldWrapper);
         }
     }
+
+    // Додаємо кнопку Вхід
+    const btnWrapper = document.createElement("div");
+    btnWrapper.className = "btn-wrapper-dark";
+    btnWrapper.innerHTML = `
+        <button class="submit-btn" type="submit">
+            <span>Зберегти</span>
+        </button>
+    `;
+    formContainer.appendChild(btnWrapper);
 }

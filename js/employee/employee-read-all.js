@@ -1,4 +1,5 @@
 import { readEmployeeById } from "./employee-read-by-id.js";
+import { getCreateUserAndEmployeeForms } from "./employee-create.js";
 
 
 const listContainer = document.getElementById('employee-list');
@@ -163,8 +164,13 @@ function renderEmployeeCards(employees) {
             document.querySelector(".our-team-person-card-container").classList.add("visible")
         });
     });
-    if(localStorage.getItem("userRole") === "ROLE_ADMIN" || localStorage.getItem("userRole") === "ROLE_MANAGER") {
+
+    if(localStorage.getItem("userRole") === "ROLE_ADMIN" 
+    || localStorage.getItem("userRole") === "ROLE_MANAGER") {
         document.getElementById("create-new-employee-btn").style.display = "flex";
+        document.getElementById("create-new-employee-btn").addEventListener("click",() => {
+            getCreateUserAndEmployeeForms();
+        })
     }
 }
 
