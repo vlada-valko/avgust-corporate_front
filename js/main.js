@@ -60,6 +60,21 @@ try {
   console.error("❌ Помилка під час імпорту ./employee/employee-mapping.js:", err);
 }
 try {
+  await import("./user/user-mapping.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту ./employee/employee-mapping.js:", err);
+}
+try {
+  await import("./user/user-create.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту ./employee/employee-create.js:", err);
+}
+try {
+  await import("./employee/employee-delete.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту ./employee/employee-delete.js:", err);
+}
+try {
   await import("./employee/employee-create.js");
 } catch (err) {
   console.error("❌ Помилка під час імпорту ./employee/employee-create.js:", err);

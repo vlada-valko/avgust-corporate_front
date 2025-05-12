@@ -81,6 +81,7 @@ h3 {
     --main-text-dark-color: #686868;
     --main-text-light-color: rgb(242, 242, 242);
     --accent-text-color: #eea029;
+    --error-text-color: #d80e0e;
 
     /* DECORATIONS */
     --light-border-color: rgb(255, 255, 255);
@@ -293,3 +294,10 @@ h3 {
     filter: brightness(0) invert(1);
 }
   
+/* ERROR MESSAGE */
+.error-message {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--error-text-color);
+    font-style: italic;
+}

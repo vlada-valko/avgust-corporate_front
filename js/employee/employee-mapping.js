@@ -15,5 +15,6 @@ export const employeeFieldMapping = {
     "workEmail": "Робочий email",
     "residentialAddress": "Адреса",
     "keyNumber": "Номер ключа",
-    "photo": "Фото"
+    "photo": "Фото",
+    "users": "Користувач"
 };

@@ -1,5 +1,5 @@
 import { readEmployeeById } from "./employee-read-by-id.js";
-import { getCreateUserAndEmployeeForms } from "./employee-create.js";
+import { getCreateUserForms } from "../user/user-create.js";
 
 
 const listContainer = document.getElementById('employee-list');
@@ -169,7 +169,7 @@ function renderEmployeeCards(employees) {
     || localStorage.getItem("userRole") === "ROLE_MANAGER") {
         document.getElementById("create-new-employee-btn").style.display = "flex";
         document.getElementById("create-new-employee-btn").addEventListener("click",() => {
-            getCreateUserAndEmployeeForms();
+            getCreateUserForms();
         })
     }
 }
