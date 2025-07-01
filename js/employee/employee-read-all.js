@@ -20,7 +20,7 @@ export async function readAllEmployee() {
             throw new Error(`Помилка завантаження даних: ${response.statusText}`);
         }
         const data = await response.json();
-        renderEmployeeCards(data.employees);
+        renderEmployeeCards(data.data);
         return data; 
     } catch (error) {
         console.error(error);
@@ -160,7 +160,8 @@ function renderEmployeeCards(employees) {
 
         // Add click event
         btnLink.addEventListener("click", () => {
-            readEmployeeById(employee.id);
+            readEmployeeById(card.id);
+            console.log(card.id)
             document.querySelector(".our-team-person-card-container").classList.add("visible")
         });
     });
@@ -169,6 +170,7 @@ function renderEmployeeCards(employees) {
     || localStorage.getItem("userRole") === "ROLE_MANAGER") {
         document.getElementById("create-new-employee-btn").style.display = "flex";
         document.getElementById("create-new-employee-btn").addEventListener("click",() => {
+            document.querySelector(".create-new-employee__container").classList.add("visible");
             getCreateUserForms();
         })
     }

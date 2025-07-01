@@ -1,6 +1,5 @@
-   // Функція для входу
-   document.getElementById('loginForm').addEventListener('submit', async function(event) {
-    event.preventDefault();  
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -14,21 +13,21 @@
             },
             body: JSON.stringify({ username, password }),
         });
-
+console.log(username, password)
         const data = await response.json();
+        console.log(response)
+        console.log(data)
 
-        if (response.ok && data['jwt-token']) {
-            
+        if (response.ok && data.status === 'success' && data.data) {
+          localStorage.setItem("jwt-token", data.data.token); 
+          localStorage.setItem("userRole", data.data.userRole); 
+
             errorMessage.style.display = 'none';
-            localStorage.setItem('jwt-token', data['jwt-token']);
-            localStorage.setItem('userId', data['userId']);
-            localStorage.setItem('userRole', data['userRole']);
 
-            
             document.getElementById('loginPage').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
             window.history.replaceState({}, "", "/index.html");
-            location.reload(); 
+            location.reload();
 
         } else {
             errorMessage.textContent = 'Неправильний логін або пароль';
@@ -40,3 +39,9 @@
         errorMessage.style.display = 'block';
     }
 });
+
+if(localStorage.getItem('jwt-token') === undefined) {
+     localStorage.removeItem("jwt-token");
+    window.history.replaceState({}, "", "/index.html");
+    location.reload(); 
+}

@@ -1,6 +1,5 @@
 
 async function loadScripts() {
-
   try {
   //  SLICK
   try {
@@ -11,12 +10,12 @@ async function loadScripts() {
   
   //HEADER
   try {
-    await import("./header/login.js");
+    await import("./auth/login.js");
   } catch (err) {
     console.error("❌ Помилка під час імпорту ./header/login.js:", err);
   }
   try {
-    await import("./header/logout.js");
+    await import("./auth/logout.js");
   } catch (err) {
     console.error("❌ Помилка під час імпорту ./header/logout.js:", err);
   }
@@ -26,12 +25,12 @@ async function loadScripts() {
     console.error("❌ Помилка під час імпорту ./header/menu.js:", err);
   }
   try {
-    await import("./header/show-login-block.js");
+    await import("./auth/show-login-block.js");
   } catch (err) {
     console.error("❌ Помилка під час імпорту ./header/show-login-block.js:", err);
   }
   try {
-    await import("./header/toggle-personal-account-icons.js");
+    await import("./auth/toggle-personal-account-icons.js");
   } catch (err) {
     console.error("❌ Помилка під час імпорту ./header/toggle-personal-account-icons.js:", err);
   }

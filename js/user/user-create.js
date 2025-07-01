@@ -17,8 +17,10 @@ export async function getCreateUserForms() {
         }
 
         const data = await response.json();
-        createUserForm(data);
-        getCreateEmployeeForms();
+        console.log(data)
+        console.log(data.data)
+
+        createUserForm(data.data);
         return data;
     } catch (error) {
         console.error(error);
@@ -26,10 +28,11 @@ export async function getCreateUserForms() {
     }
 }
 function createUserForm(data) {
-    document.querySelector(".create-new-employee__container").classList.add("visible");
+    document.querySelector(".create-new-employee__create-user").style.display = "flex";
     const formContainer = document.querySelector(".create-new-employee__create-user");
     formContainer.innerHTML = "";
 
+    // Кнопка закриття
     const closeBtnWrapper = document.createElement("div");
     closeBtnWrapper.className = "close-btn";
     closeBtnWrapper.innerHTML = `
@@ -41,7 +44,17 @@ function createUserForm(data) {
     closeBtnWrapper.addEventListener("click", () => {
         document.querySelector(".create-new-employee__container").classList.remove("visible");
     });
+    
+    const p = document.createElement("p");
+    p.className = "title";
+    p.innerHTML = `
+        <p>
+            Дані нового користувача
+        </p>
+    `;
+    formContainer.appendChild( p);
 
+    // Поля форми
     const roleOptions = data.roles || [];
     const fields = ['username', 'password', 'confirmPassword', 'role'];
     const formElements = {};
@@ -82,31 +95,47 @@ function createUserForm(data) {
 
         const errorDiv = document.createElement("div");
         errorDiv.className = "error-message";
-        errorDiv.id = `${field}-error`; // Унікальний ID для кожної помилки
-        errorContainers[field] = errorDiv;
+        errorDiv.id = `${field}-error`;
 
         formElements[field] = input;
+        errorContainers[field] = errorDiv;
 
         fieldWrapper.appendChild(label);
         fieldWrapper.appendChild(input);
-        fieldWrapper.appendChild(errorDiv); 
+        fieldWrapper.appendChild(errorDiv);
+
         formContainer.appendChild(fieldWrapper);
     });
 
-    const btnWrapper = document.createElement("div");
-    btnWrapper.className = "btn-wrapper-dark";
-    btnWrapper.innerHTML = `
+    // Кнопка "Зберегти"
+    const saveBtnWrapper = document.createElement("div");
+    saveBtnWrapper.className = "btn-wrapper-dark";
+    saveBtnWrapper.innerHTML = `
         <button class="submit-btn" type="submit">
             <span>Зберегти</span>
         </button>
     `;
-    formContainer.appendChild(btnWrapper);
-
-    btnWrapper.addEventListener("click", (event) => {
-        event.preventDefault();  
+    formContainer.appendChild(saveBtnWrapper);
+    saveBtnWrapper.addEventListener("click", (event) => {
+        event.preventDefault();
         createUser();
     });
+
+    // Кнопка "Співробітника вже створено"
+    const skipBtnWrapper = document.createElement("div");
+    skipBtnWrapper.className = "btn-wrapper-dark";
+    skipBtnWrapper.innerHTML = `
+        <button class="skip-btn" type="button">
+            <span>Користувача вже створено</span>
+        </button>
+    `;
+    formContainer.appendChild(skipBtnWrapper);
+    skipBtnWrapper.addEventListener("click", () => {
+        document.querySelector(".create-new-employee__create-user").style.display = "none";
+        getCreateEmployeeForms();
+    });
 }
+
 export async function createUser() {
     try {
         const token = localStorage.getItem("jwt-token");
@@ -114,18 +143,19 @@ export async function createUser() {
         const inputs = form.querySelectorAll("input, select, textarea");
         const data = {};
 
-        // Очистити попередні помилки
+        // Очищуємо всі попередні повідомлення про помилки
         const errorMessages = form.querySelectorAll(".error-message");
         errorMessages.forEach(error => error.textContent = '');
 
-        // Зібрати дані з форми
+        // Збираємо дані з форми
         inputs.forEach(input => {
             const key = input.name || input.id;
-            if (!key) return;
-            data[key] = input.value.trim();
+            if (key) {
+                data[key] = input.value.trim();
+            }
         });
 
-        // Відправка даних на сервер
+        // Відправляємо запит на сервер
         const response = await fetch("http://localhost:8080/users/new", {
             method: "POST",
             headers: {
@@ -135,35 +165,37 @@ export async function createUser() {
             body: JSON.stringify(data)
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Помилка при збереженні користувача:", errorData);
+       if (!response.ok) {
+    const errorData = await response.json();
+    console.error("Помилка при збереженні працівника:", errorData);
 
-            // Виведення помилок для всіх полів
-            for (const field in errorData) {
-                const fieldElement = document.getElementById(field); // Використовуємо ID
-                if (!fieldElement) {
-                    console.error(`Не знайдено елемент для поля: ${field}`);
-                    continue;
-                }
+    const fieldErrors = errorData.data;
+    console.log("Отримані помилки:", fieldErrors);
 
-                const errorContainer = document.getElementById(`${field}-error`); // Використовуємо ID контейнера помилки
-                if (errorContainer) {
-                    errorContainer.textContent = errorData[field];
-                } else {
-                    console.log(`Не знайдено контейнер для помилки для поля: ${field}`);
-                }
+    if (fieldErrors && typeof fieldErrors === 'object') {
+        for (const field in fieldErrors) {
+            const errorContainer = document.getElementById(`${field}-error`);
+            const fieldElement = document.getElementById(field);
+
+            if (errorContainer) {
+                errorContainer.textContent = fieldErrors[field];
+            } else {
+                console.warn(`Не знайдено контейнер помилки для поля: ${field}`);
             }
-            return null; // Якщо користувача не створено, повертаємо null
-        } else {
-            alert("Користувач успішно створений");
-            const createdUser = await response.json();
-            console.log("Створений користувач ID:", createdUser.createdUserId);
-            return createdUser.createdUserId; // Повертаємо ID створеного користувача
         }
+    } else {
+        console.warn("Поле data у відповіді відсутнє або не є обʼєктом");
+    }
+
+    return;
+}
+
+
+        alert("Працівник успішно створений");
+        window.location.reload();
+
     } catch (error) {
         console.error("Помилка відправки запиту:", error);
-        return null; // Повертаємо null у випадку помилки
     }
 }
 

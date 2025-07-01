@@ -1,245 +1,241 @@
-import { employeeFieldMapping } from './employee-mapping.js';
+import { employeeFieldMapping } from "./employee-mapping.js";
+import { getCreateUserForms } from "../user/user-create.js";
 
-export async function getCreateEmployeeForms() {
-    try {
-        const token = localStorage.getItem("jwt-token");
-        const response = await fetch("http://localhost:8080/employees/new", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-        });
-        if (!response.ok) {
-            throw new Error(`Помилка завантаження даних: ${response.statusText}`);
-        }
-        const data = await response.json();
-        console.log(data)
-        createEmployeeForm(data);
-        return data;
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-    
+async function resizeImage(file, maxWidth = 800, maxHeight = 800, quality = 0.7) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      const scale = Math.min(maxWidth / width, maxHeight / height, 1);
+      width *= scale;
+      height *= scale;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(blob => {
+        if (blob) resolve(blob);
+        else reject(new Error("Не вдалося стиснути зображення"));
+      }, "image/jpeg", quality);
+    };
+    img.onerror = () => reject(new Error("Помилка при завантаженні зображення"));
+    img.src = URL.createObjectURL(file);
+  });
 }
 
-function createEmployeeForm(data) {
-    const formContainer = document.querySelector(".create-new-employee__create-employee");
-    formContainer.innerHTML = ""; // Очищаємо форму перед її рендерингом
-
-    const errorContainers = {}; // Об'єкт для зберігання контейнерів помилок
-
-    const selectFields = {
-        department: data.departments,
-        position: data.positions,
-        workplaceType: data.workplaceTypes,
-        gender: data.genders,
-        role: data.roles,
-    };
-
-    // Створюємо select для користувачів
-    const userFieldWrapper = document.createElement("div");
-    userFieldWrapper.className = "form-field";
-
-    const userLabel = document.createElement("label");
-    userLabel.htmlFor = "user";
-    userLabel.classList.add("main-text");
-    userLabel.textContent = "Користувач";
-
-    const userSelect = document.createElement("select");
-    userSelect.id = "user";
-    userSelect.name = "user";
-
-    // Додаємо опції для користувачів
-    data.users.forEach(user => {
-        const option = document.createElement("option");
-        option.value = user;
-        option.textContent = user;
-        userSelect.appendChild(option);
+// Отримання форми
+export async function getCreateEmployeeForms() {
+  try {
+    const token = localStorage.getItem("jwt-token");
+    const res = await fetch("http://localhost:8080/employees/new", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
+    if (!res.ok) throw new Error("Не вдалося завантажити форму");
+    const json = await res.json();
+    console.log(json)
+    createEmployeeForm(json.data);
+  } catch (err) {
+    console.error("Помилка завантаження:", err);
+  }
+}
 
-    // Додаємо label і select для користувачів
-    userFieldWrapper.appendChild(userLabel);
-    userFieldWrapper.appendChild(userSelect);
+// Створення форми
+function createEmployeeForm(data) {
+  const container = document.querySelector(".create-new-employee__create-employee");
+  container.innerHTML = "";
+  container.style.display = "flex";
+  // 🔧 Виправлені ключі: вони тепер відповідають createEmployeeForm
+  const selectFields = {
+    departmentId: data.departments,
+    positionId: data.positions,
+   workplaceTypeId: data.workplaceTypes,
+    gender: data.genders,
+    role: data.roles,
+  };
 
-    // Додаємо контейнер помилки для користувача
-    const userErrorDiv = document.createElement("div");
-    userErrorDiv.className = "error-message";
-    userErrorDiv.id = "user-error";  // Унікальний ID для контейнера помилки користувача
-    userFieldWrapper.appendChild(userErrorDiv);
+  container.innerHTML += `
+    <div class="close-btn"><button><img src="/img/close.png" alt="close-cross"></button></div>
+    <p class="title">Дані нового співробітника</p>
+    <div class="form-field">
+      <label for="userId" class="main-text">Користувач</label>
+      <select id="userId" name="userId">
+        ${data.users.map(u => `<option value="${u.id}">${u.username}</option>`).join("")}
+      </select>
+      <div class="error-message" id="userId-error"></div>
+    </div>
+  `;
 
-    formContainer.appendChild(userFieldWrapper); // Додаємо поле користувача в форму
+  document.querySelector(".close-btn").addEventListener("click", () => {
+    document.querySelector(".create-new-employee__container").classList.remove("visible");
+  });
 
-    // Обробляємо інші поля форми
-    for (const field in data.createEmployeeForm) {
-        if (!employeeFieldMapping[field]) continue;
+  for (const field in data.createEmployeeForm) {
+    if (!employeeFieldMapping[field]) continue;
 
-        const fieldWrapper = document.createElement("div");
-        fieldWrapper.className = "form-field";
-
-        const label = document.createElement("label");
-        label.htmlFor = field;
-        label.classList.add("main-text");
-        label.textContent = employeeFieldMapping[field];
-
-        let input;
-
-        if (selectFields[field] && selectFields[field].length > 0) {
-            input = document.createElement("select");
-            input.id = field;
-            input.name = field;
-
-            // Додаємо опції в select для інших полів
-            selectFields[field].forEach(optionValue => {
-                const option = document.createElement("option");
-                option.value = optionValue;
-                option.textContent = optionValue;
-                input.appendChild(option);
-            });
-        } else if (field === "residentialAddress") {
-            // Спеціальний випадок для адреси
-            const addressWrapper = document.createElement("div");
-            addressWrapper.className = "form-field address-field";
-
-            const addressLabel = document.createElement("label");
-            addressLabel.htmlFor = "address";
-            addressLabel.classList.add("main-text");
-            addressLabel.textContent = "Адреса:";
-
-            const addressFields = [
-                { id: "country", placeholder: "Країна" },
-                { id: "city", placeholder: "Місто" },
-                { id: "street", placeholder: "Вулиця" },
-                { id: "houseNumber", placeholder: "Будинок" },
-                { id: "apartmentNumber", placeholder: "Квартира" },
-            ];
-
-            addressFields.forEach(subField => {
-                const subInput = document.createElement("input");
-                subInput.id = subField.id;
-                subInput.name = subField.id;
-                subInput.placeholder = subField.placeholder;
-                subInput.type = "text";
-                addressWrapper.appendChild(subInput);
-            });
-
-            formContainer.appendChild(addressLabel);
-            formContainer.appendChild(addressWrapper);
-            continue;
-        } else {
-            // Інші типи полів
-            input = document.createElement("input");
-            input.id = field;
-            input.name = field;
-            input.type =
-                field === "dateOfBirth" ? "date" :
-                field === "photo" ? "file" :
-                field.includes("Email") ? "email" :
-                field.includes("Mobile") || field === "internalPhone" || field === "corporateMobile" ? "tel" :
-                "text";
-
-            if (input.type === "tel") {
-                input.pattern = "\\(\\d{3}\\)-\\d{3}-\\d{2}-\\d{2}";
-                const mask = new Inputmask("(999)-999-99-99");
-                mask.mask(input);
-            }
-
-            if (input.type === "email") {
-                const mask = new Inputmask("email");
-                mask.mask(input);
-            }
-        }
-
-        // Додаємо label і input
-        fieldWrapper.appendChild(label);
-        fieldWrapper.appendChild(input);
-
-        // Додаємо контейнер помилки з унікальним ID
-        const errorDiv = document.createElement("div");
-        errorDiv.className = "error-message";
-        errorDiv.id = `${field}-error`;  // Унікальний ID для контейнера помилки
-        fieldWrapper.appendChild(errorDiv);
-        errorContainers[field] = errorDiv;
-
-        formContainer.appendChild(fieldWrapper);
+    if (field === "residentialAddress") {
+      const addressFields = ["country", "city", "street", "houseNumber", "apartmentNumber"];
+      const addressHTML = addressFields.map(
+        id =>
+          `<input id="${id}" name="${id}" type="text" placeholder="${id[0].toUpperCase() + id.slice(1)}">`
+      ).join("");
+      container.innerHTML += `
+        <div class="form-field address-field">
+          <label class="main-text">Адреса:</label>
+          ${addressHTML}
+        </div>
+      `;
+      continue;
     }
 
-    const btnWrapper = document.createElement("div");
-    btnWrapper.className = "btn-wrapper-dark";
-    btnWrapper.innerHTML = `
-        <button class="submit-btn" type="submit">
-            <span>Зберегти</span>
-        </button>
-    `;
-    formContainer.appendChild(btnWrapper);
+    const label = `<label for="${field}" class="main-text">${employeeFieldMapping[field]}</label>`;
+    let input;
 
-    btnWrapper.addEventListener("click", (event) => {
-        event.preventDefault(); 
-        createEmployee(); // викликаємо функцію для створення працівника
-    });
+    if (selectFields[field]) {
+      input = `<select id="${field}" name="${field}">
+        ${selectFields[field]
+          .map(
+            item =>
+              `<option value="${item.id ?? item}">${item.name ?? item}</option>`
+          )
+          .join("")}
+      </select>`;
+    } else {
+      let type = "text";
+      if (field === "dateOfBirth") type = "date";
+      else if (field === "photo") type = "file";
+      else if (field.includes("Email")) type = "email";
+      else if (["personalMobile", "corporateMobile", "internalPhone"].includes(field)) type = "tel";
+
+      input = `<input id="${field}" name="${field}" type="${type}">`;
+    }
+
+    container.innerHTML += `
+      <div class="form-field">
+        ${label}
+        ${input}
+        <div class="error-message" id="${field}-error"></div>
+      </div>
+    `;
+  }
+
+  const saveBtnWrapper = document.createElement("div");
+  saveBtnWrapper.className = "btn-wrapper-dark";
+  saveBtnWrapper.innerHTML = `<button class="submit-btn" type="submit"><span>Зберегти</span></button>`;
+  saveBtnWrapper.addEventListener("click", e => {
+    e.preventDefault();
+    createEmployee();
+  });
+  container.appendChild(saveBtnWrapper);
+
+  const addUserBtnWrapper = document.createElement("div");
+  addUserBtnWrapper.className = "btn-wrapper-dark";
+  addUserBtnWrapper.innerHTML = `<button class="add-user-btn" type="button"><span>Додати користувача</span></button>`;
+  addUserBtnWrapper.addEventListener("click", () => {
+    container.style.display = "none";
+    addUserBtnWrapper.style.display = "none";
+    getCreateUserForms();
+  });
+  document.querySelector(".create-new-employee__container").appendChild(addUserBtnWrapper);
 }
 
 export async function createEmployee() {
-    try {
-        const token = localStorage.getItem("jwt-token");
-        const form = document.querySelector(".create-new-employee__create-employee");
-        const inputs = form.querySelectorAll("input, select, textarea");
-        const data = {};
+  try {
+    const token = localStorage.getItem("jwt-token");
+    const form = document.querySelector(".create-new-employee__create-employee");
+    const inputs = form.querySelectorAll("input, select, textarea");
 
-        const errorMessages = form.querySelectorAll(".error-message");
-        errorMessages.forEach(error => error.textContent = '');
+    const data = {};
+    const formData = new FormData();
+    const addressParts = [];
 
-        // Зібрати дані з форми
-        inputs.forEach(input => {
-            const key = input.name || input.id;
-            if (!key) return;
-            data[key] = input.value.trim();
-        });
+    // Очистка старих помилок
+    document.querySelectorAll(".error-message").forEach(el => (el.textContent = ""));
 
-        // Додати userId до даних
-        data.userId = userId;
+    for (const input of inputs) {
+      const key = input.name || input.id;
+      if (!key) continue;
 
-        // Відправка даних на сервер
-        const response = await fetch("http://localhost:8080/employees/new", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
-        });
+      // Адреса
+      if (["country", "city", "street", "houseNumber", "apartmentNumber"].includes(key)) {
+        addressParts.push(input.value.trim());
+        continue;
+      }
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Помилка при збереженні працівника:", errorData);
-
-            // Виведення помилок для всіх полів
-            for (const field in errorData) {
-                const fieldElement = document.getElementById(field); // Використовуємо ID
-                if (!fieldElement) {
-                    console.error(`Не знайдено елемент для поля: ${field}`);
-                    continue;
-                }
-
-                const errorContainer = document.getElementById(`${field}-error`); // Використовуємо ID контейнера помилки
-                if (errorContainer) {
-                    errorContainer.textContent = errorData[field];
-                } else {
-                    console.log(`Не знайдено контейнер для помилки для поля: ${field}`);
-                }
-            }
-        } else {
-            alert("Працівник успішно створений");
+      // Фото
+      if (input.type === "file") {
+        const file = input.files[0];
+        if (file) {
+          if (!file.type.startsWith("image/")) {
+            const error = document.getElementById("photo-error");
+            if (error) error.textContent = "Некоректний формат фото. Завантажте зображення.";
+            return;
+          }
+          try {
+            const resized = await resizeImage(file);
+            formData.append("photo", resized, file.name);
+          } catch {
+            const error = document.getElementById("photo-error");
+            if (error) error.textContent = "Не вдалося обробити зображення.";
+            return;
+          }
         }
-    } catch (error) {
-        console.error("Помилка відправки запиту:", error);
+      } else {
+        let value = input.value.trim();
+
+        // Телефони — тільки цифри
+        if (["personalMobile", "corporateMobile"].includes(key)) {
+          value = value.replace(/\D/g, "");
+        }
+
+        // gender — залишаємо як рядок, решта select — число
+        if (input.tagName.toLowerCase() === "select") {
+          if (key === "gender") {
+            data[key] = value; // "Ч" або "Ж"
+          } else {
+            data[key] = Number(value); // Прокидаємо id
+          }
+        } else {
+          data[key] = value;
+        }
+      }
     }
+
+    const filtered = addressParts.filter(Boolean);
+const len = filtered.length;
+
+if (len >= 2) {
+  filtered[len - 2] = "буд " + filtered[len - 2];
+  filtered[len - 1] = "кв " + filtered[len - 1];
 }
 
+data.residentialAddress = filtered.join(", ");
+    formData.append("employeeDTO", new Blob([JSON.stringify(data)], { type: "application/json" }));
 
+    const res = await fetch("http://localhost:8080/employees/new", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    });
 
-
-
-
-
+    if (!res.ok) {
+      const errorData = await res.json();
+      const errors = errorData.data || {};
+      for (const field in errors) {
+        const el = document.getElementById(`${field}-error`);
+        if (el) el.textContent = errors[field];
+      }
+      return;
+    }
+    console.log(formData)
+    alert("Працівник успішно створений");
+    window.location.reload();
+  } catch (err) {
+    console.error("Помилка відправки запиту:", err);
+  }
+}

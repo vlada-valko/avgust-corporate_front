@@ -4,7 +4,7 @@ if(document.getElementById("elastic")) {
 (async () => {
     try {
         const response = await readAllEmployee();
-        const employees = response.employees;
+        const employees = response.data;
 
         const listContainer = document.querySelector('.elastic');
         const inputField = document.getElementById("elastic");
