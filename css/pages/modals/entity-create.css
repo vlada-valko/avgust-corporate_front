@@ -1,0 +1,44 @@
+
+.entity-create-block {
+    display: none;
+  }
+.entity-create-block.visible  {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  border: 1px solid red;
+  top: calc(var(--header-height) + 50px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 40px;
+  background: var(--light-gradient-background);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  z-index: 1000;
+}
+@media(min-width: 1000px) {
+  .entity-create-block .visible {
+     width: 500px;
+  }
+}
+.entity-create-block  .title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.entity-create-block .close-btn button {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 25px;
+  height: 25px;
+  transition: transform ease-in-out var(--animation-time);
+}
+.entity-create-block .close-btn button:hover {
+  transform: rotate(180deg);
+  transition: transform ease-in-out var(--animation-time);
+}

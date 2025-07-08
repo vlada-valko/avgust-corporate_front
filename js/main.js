@@ -102,6 +102,21 @@ try {
 } catch (err) {
   console.error("❌ Помилка під час імпорту ./additional-js/documents-view-accordeon.js:", err);
 }
+try {
+  await import("./mapping/employee-mapping.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту entity-create.js", err);
+}
+try {
+  await import("./entity-create.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту entity-create.js", err);
+}
+try {
+  await import("./errors.js");
+} catch (err) {
+  console.error("❌ Помилка під час імпорту errors.js", err);
+}
   } catch (error) {
   }
 }

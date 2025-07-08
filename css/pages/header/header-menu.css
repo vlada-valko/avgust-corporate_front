@@ -108,7 +108,7 @@
 .header__menu-and-personal-account.menu-visible {
     left: 0;
     top: calc(var(--header-height));
-    z-index: 1000;
+    z-index: 999;
     padding: 50px 0;
     transition: all ease-in-out var(--animation-time);
     width: 100vw;

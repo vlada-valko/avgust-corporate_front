@@ -1,14 +1,17 @@
-import { readEmployeeById } from "./employee-read-by-id.js";
-import { getCreateUserForms } from "../user/user-create.js";
-
+import {renderError500} from "../../js/errors.js";
+import {renderError403} from "../../js/errors.js";
+import {renderError401} from "../../js/errors.js";
 
 const listContainer = document.getElementById('employee-list');
 if (listContainer && employeeContainer) {
     readAllEmployee();
 }
+
+
 export async function readAllEmployee() {
     try {
         const token = localStorage.getItem("jwt-token");
+
         const response = await fetch("http://localhost:8080/employees/all", {
             method: "GET",
             headers: {
@@ -16,17 +19,30 @@ export async function readAllEmployee() {
                 "Authorization": `Bearer ${token}`,
             },
         });
+
         if (!response.ok) {
+            if (response.status === 401) {
+                const errorBody = await response.json();
+                if (errorBody.errorCode === "AUTH_EXPIRED") {
+                    
+                    renderError401();
+                    localStorage.removeItem("jwt-token");
+                    return;
+                }
+            }
             throw new Error(`Помилка завантаження даних: ${response.statusText}`);
         }
+
         const data = await response.json();
         renderEmployeeCards(data.data);
-        return data; 
+        return data;
+
     } catch (error) {
-        console.error(error);
+        console.error("Помилка при отриманні співробітників:", error);
         return [];
     }
 }
+
 
 function renderEmployeeCards(employees) {
     const container = document.querySelector(".employee-list__container");
@@ -170,8 +186,8 @@ function renderEmployeeCards(employees) {
     || localStorage.getItem("userRole") === "ROLE_MANAGER") {
         document.getElementById("create-new-employee-btn").style.display = "flex";
         document.getElementById("create-new-employee-btn").addEventListener("click",() => {
-            document.querySelector(".create-new-employee__container").classList.add("visible");
-            getCreateUserForms();
+            // document.querySelector(".create-new-employee__container").classList.add("visible");
+            // getCreateUserForms();
         })
     }
 }
