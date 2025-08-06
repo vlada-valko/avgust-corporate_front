@@ -1,20 +1,36 @@
-export const employeeFieldMapping = {
-//   userId: "Користувач",
-  firstName: "Ім'я",
+export const fieldNameMapping = {
+  // region: Personal Info
   lastName: "Прізвище",
+  firstName: "Ім’я",
   middleName: "По батькові",
-  dateOfBirth: "Дата народження",
-  personalMobile: "Особистий номер",
-  corporateMobile: "Корпоративний номер",
-  internalPhone: "Внутрішній номер",
-  email: "Електронна пошта",
-  corporateEmail: "Корпоративна пошта",
   gender: "Стать",
-  departmentId: "Відділ",
-  positionId: "Посада",
-  role: "Роль",
-  workplaceTypeId: "Тип місця роботи",
+  dateOfBirth: "Дата народження",
   photo: "Фото",
-  residentialAddress: "Адреса проживання",
   quote: "Цитата",
+  inspiration: "Натхнення",
+
+  // region: Work Info
+  departmentName: "Назва відділу",
+
+  managerName: "Ім’я керівника",
+
+  positionName: "Назва посади",
+
+  workplaceTypeName: "Назва типу місця роботи",
+
+  employmentStartDate: "Дата початку роботи",
+
+  // region: Contacts
+  corporateMobile: "Корпоративний телефон",
+  personalMobile: "Особистий телефон",
+  personalEmail: "Особиста пошта",
+  workEmail: "Робоча пошта",
+  internalPhone: "Внутрішній телефон",
+
+  // region: Address
+  country: "Країна",
+  city: "Місто",
+  street: "Вулиця",
+  buildingNumber: "Номер будинку",
+  apartmentNumber: "Квартира",
 };

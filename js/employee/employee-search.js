@@ -18,17 +18,17 @@ if(document.getElementById("elastic")) {
         employees.forEach(emp => {
             const listItem = document.createElement('li');
             listItem.classList.add('hide');
-            listItem.setAttribute('data-id', emp.id);
+            listItem.setAttribute('data-id', emp.employeeId);
 
             const link = document.createElement('a');
             const fullName = [emp.lastName, emp.firstName, emp.middleName]
                 .filter(Boolean)
                 .join(' ');
 
-            const position = emp.position?.name || 'Посада не вказана';
-            const department = emp.department?.name || 'Без департаменту';
+            const position = emp.positionName || 'Посада не вказана';
+            const department = emp.departmentName || 'Без департаменту';
 
-            link.href = `#${emp.id}`;
+            link.href = `#${emp.employeeId}`;
             link.textContent = `${fullName} - ${position} (${department})`;
 
             listItem.appendChild(link);
@@ -45,15 +45,15 @@ if(document.getElementById("elastic")) {
                     .join(' ')
                     .toLowerCase();
 
-                const position = emp.position?.name?.toLowerCase() || '';
-                const department = emp.department?.name?.toLowerCase() || '';
+                const position = emp.positionName?.toLowerCase() || '';
+                const department = emp.departmentName?.toLowerCase() || '';
 
                 const matches =
                     fullName.includes(val) ||
                     position.includes(val) ||
                     department.includes(val);
 
-                const listItem = listContainer.querySelector(`li[data-id='${emp.id}']`);
+                const listItem = listContainer.querySelector(`li[data-id='${emp.employeeId}']`);
                 if (listItem) {
                     if (matches) {
                         listItem.classList.remove('hide');
@@ -68,7 +68,7 @@ if(document.getElementById("elastic")) {
         document.querySelector(".clear-button").addEventListener("click", () => {
             inputField.value = "";
             employees.forEach(emp => {
-                const listItem = listContainer.querySelector(`li[data-id='${emp.id}']`);
+                const listItem = listContainer.querySelector(`li[data-id='${emp.employeeId}']`);
                 if (listItem) {
                     listItem.classList.add('hide');
                 }

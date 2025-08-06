@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/img/logo-small.png" type="image/x-icon" />
-    <title>Департаменти</title>
+    <title>Avgust.ua</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body class="departments">
@@ -13,19 +13,46 @@
       data-hx-swap="outerHTML"
       data-hx-get="/partials/header/menu.html"
     ></header>
-    <h1>Департаменти:</h1>
+    <!-- BANNER -->
+    <section
+      data-hx-trigger="load"
+      data-hx-swap="outerHTML"
+      data-hx-get="/partials/departments/departments-banner.patrial.html"
+    ></section>
     <div class="wrapper">
-      <div class="department__read-all-container"></div>
-      <div class="department__read-by-id-container"></div>
-    </div>
-    <button class="create-department-btn create-btn">Додати новий департамент</button>
-    <div class="create-department-container"></div>
+
+      <!--entity-create-->
+    <section
+    data-hx-trigger="load"
+    data-hx-swap="outerHTML"
+    data-hx-get="/partials/modals/entity-create.html"
+  ></section>
+
+  <section
+  data-hx-trigger="load"
+  data-hx-swap="outerHTML"
+  data-hx-get="/partials/departments/departments-list.patrial.html"
+></section>
+<section
+data-hx-trigger="load"
+data-hx-swap="outerHTML"
+data-hx-get="/partials/departments/department-card.partial.html"
+></section>
+<div
+data-hx-trigger="load"
+data-hx-swap="outerHTML"
+data-hx-get="/modals/error-modal.html"
+></div>
+
+   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.7/dist/inputmask.min.js"></script>
     <script src="/js/main.js"></script>
     <script
       src="https://unpkg.com/htmx.org@1.9.10"
       integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
       crossorigin="anonymous"
     ></script>
+    </div>
   </body>
 </html>

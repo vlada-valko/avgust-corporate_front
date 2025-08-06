@@ -29,8 +29,7 @@ document.querySelectorAll(".btn-wrapper-dark[id^='create-']").forEach((btn) => {
 export async function getCreateFormData(entityName) {
   try {
     const token = localStorage.getItem("jwt-token");
-    const response = await fetch(`http://localhost:8080/${entityName}/new`, {
-    // const response = await fetch(`https://avgust-corporate-server.fly.dev/${entityName}/new`, {
+    const response = await fetch(`https://avgust-corporate-server.fly.dev/${entityName}/new`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -51,6 +50,7 @@ export async function getCreateFormData(entityName) {
     return null;
   }
 }
+
 export function renderCreateForm(formData, fieldNameMapping = {}) {
   form.innerHTML = "";
 
@@ -71,116 +71,114 @@ export function renderCreateForm(formData, fieldNameMapping = {}) {
   function renderObject(obj, parentKey = "") {
     for (const field in obj) {
       const value = obj[field];
-
       if (value === null || value === undefined) continue;
       if (!parentKey && !field.endsWith("DTO")) continue;
-      if (!fieldNameMapping[field] && !field.endsWith("DTO")) continue;
 
       const fullKey = parentKey ? `${parentKey}.${field}` : field;
       const fieldLower = field.toLowerCase();
 
       if (typeof value === "object" && !Array.isArray(value)) {
         if (field.endsWith("DTO")) {
-          const sectionTitle = document.createElement("h3");
-          sectionTitle.classList.add("entity-create-title");
-          sectionTitle.textContent = fieldNameMapping[field] || field;
-          form.appendChild(sectionTitle);
+         const sectionTitle = document.createElement("h3");
+sectionTitle.classList.add("entity-create-title");
+sectionTitle.textContent = fieldNameMapping[field] || field;
+form.appendChild(sectionTitle);
+
+          console.log(sectionTitle);
 
           for (const subField in value) {
-            if (subField === "id" || !fieldNameMapping[subField]) continue;
+            if (!(subField === "id")) {
+              const subValue = value[subField];
+              const subFullKey = `${fullKey}.${subField}`;
+              const subFieldLower = subField.toLowerCase();
 
-            const subValue = value[subField];
-            const subFullKey = `${fullKey}.${subField}`;
-            const subFieldLower = subField.toLowerCase();
+              const wrapper = document.createElement("div");
+              wrapper.classList.add("form-field");
+              const label = document.createElement("label");
+              label.classList.add("main-text");
+              label.setAttribute("for", subFullKey);
+              label.textContent = fieldNameMapping[subField] || subField;
 
-            const wrapper = document.createElement("div");
-            wrapper.classList.add("form-field");
+              let keyForSelect = subFieldLower;
+              if (keyForSelect.endsWith("id")) {
+                keyForSelect = keyForSelect.slice(0, -2);
+              }
 
-            const label = document.createElement("label");
-            label.classList.add("main-text");
-            label.setAttribute("for", subFullKey);
-            label.textContent = fieldNameMapping[subField] || subField;
+              if (selectsData[keyForSelect]) {
+                const select = document.createElement("select");
+                select.name = subFullKey;
+                select.id = subFullKey;
 
-            let keyForSelect = subFieldLower;
-            if (keyForSelect.endsWith("id")) {
-              keyForSelect = keyForSelect.slice(0, -2);
-            }
-
-            if (selectsData[keyForSelect]) {
-              const select = document.createElement("select");
-              select.name = subFullKey;
-              select.id = subFullKey;
-
-              selectsData[keyForSelect].forEach((optionValue) => {
-                const option = document.createElement("option");
-                if (typeof optionValue === "object") {
-                  option.value = optionValue.id || optionValue.name || optionValue;
-                  option.textContent = optionValue.name || optionValue.toString();
-                } else {
-                  option.value = optionValue;
-                  option.textContent = optionValue;
-                }
-                if (option.value == subValue) option.selected = true;
-                select.appendChild(option);
-              });
-
-              wrapper.appendChild(label);
-              wrapper.appendChild(select);
-              form.appendChild(wrapper);
-
-              // ✅ Підключення Choices.js з пошуком
-              setTimeout(() => {
-                new Choices(select, {
-                  searchEnabled: true,
-                  itemSelectText: '',
-                  shouldSort: false
+                selectsData[keyForSelect].forEach((optionValue) => {
+                  const option = document.createElement("option");
+                  if (typeof optionValue === "object") {
+                    option.value =
+                      optionValue.id || optionValue.name || optionValue;
+                    option.textContent =
+                      optionValue.name || optionValue.toString();
+                  } else {
+                    option.value = optionValue;
+                    option.textContent = optionValue;
+                  }
+                  if (option.value == subValue) option.selected = true;
+                  select.appendChild(option);
                 });
-              }, 0);
-            } else {
-              let inputType = "text";
-              if (subFieldLower.includes("date")) inputType = "date";
-              else if (subFieldLower.includes("photo")) inputType = "file";
-              else if (subFieldLower.includes("mobile")) inputType = "tel";
-              else if (subFieldLower.includes("email")) inputType = "email";
-              else if (subFieldLower.includes("password")) inputType = "password";
 
-              const input = document.createElement("input");
-              input.type = inputType;
-              input.name = subFullKey;
-              input.id = subFullKey;
-
-              if (inputType === "date" && subValue) {
-                const date = new Date(subValue);
-                input.value = !isNaN(date) ? date.toISOString().slice(0, 10) : "";
-              } else if (inputType === "file") {
-                input.accept = "image/*";
+                wrapper.appendChild(label);
+                wrapper.appendChild(select);
               } else {
-                input.value = subValue ?? "";
+                let inputType = "text";
+                if (subFieldLower.includes("date")) {
+                  inputType = "date";
+                } else if (subFieldLower.includes("photo")) {
+                  inputType = "file";
+                } else if (subFieldLower.includes("mobile")) {
+                  inputType = "tel";
+                } else if (subFieldLower.includes("email")) {
+                  inputType = "email";
+                }
+
+                const input = document.createElement("input");
+                input.type = inputType;
+                input.name = subFullKey;
+                input.id = subFullKey;
+
+                if (inputType === "date" && subValue) {
+                  const date = new Date(subValue);
+                  input.value = !isNaN(date)
+                    ? date.toISOString().slice(0, 10)
+                    : "";
+                } else if (inputType === "file") {
+                  input.accept = "image/*";
+                } else {
+                  input.value = subValue ?? "";
+                }
+
+                // Маска для телефонів
+                if (input.type === "tel") {
+                  const mask = new Inputmask("(999)-999-99-99");
+                  mask.mask(input);
+                }
+
+                // Маска для email
+                if (input.type === "email") {
+                  const mask = new Inputmask("email");
+                  mask.mask(input);
+                }
+
+                wrapper.appendChild(label);
+                wrapper.appendChild(input);
               }
 
-              if (input.type === "tel") {
-                const mask = new Inputmask("(999)-999-99-99");
-                mask.mask(input);
-              }
-
-              if (input.type === "email") {
-                const mask = new Inputmask("email");
-                mask.mask(input);
-              }
-
-              wrapper.appendChild(label);
-              wrapper.appendChild(input);
               form.appendChild(wrapper);
             }
           }
         } else {
-          continue;
+          // інша логіка для звичайних об'єктів
         }
       } else if (Array.isArray(value)) {
-        continue;
+        // логіка для масивів, якщо потрібно
       } else {
-        if (!fieldNameMapping[field]) continue;
-
         const wrapper = document.createElement("div");
         wrapper.classList.add("form-field");
 
@@ -189,10 +187,15 @@ export function renderCreateForm(formData, fieldNameMapping = {}) {
         label.textContent = fieldNameMapping[field] || field;
 
         let inputType = "text";
-        if (fieldLower.includes("date")) inputType = "date";
-        else if (fieldLower.includes("photo")) inputType = "file";
-        else if (fieldLower.includes("mobile")) inputType = "tel";
-        else if (fieldLower.includes("email")) inputType = "email";
+        if (fieldLower.includes("date")) {
+          inputType = "date";
+        } else if (fieldLower.includes("photo")) {
+          inputType = "file";
+        } else if (fieldLower.includes("mobile")) {
+          inputType = "tel";
+        } else if (fieldLower.includes("email")) {
+          inputType = "email";
+        }
 
         const input = document.createElement("input");
         input.type = inputType;
@@ -208,12 +211,14 @@ export function renderCreateForm(formData, fieldNameMapping = {}) {
           input.value = value;
         }
 
+        // Маска для телефонів
         if (input.type === "tel") {
           input.pattern = "\\(\\d{3}\\)-\\d{3}-\\d{2}-\\d{2}";
           const mask = new Inputmask("(999)-999-99-99");
           mask.mask(input);
         }
 
+        // Маска для email
         if (input.type === "email") {
           const mask = new Inputmask("email");
           mask.mask(input);
@@ -229,19 +234,16 @@ export function renderCreateForm(formData, fieldNameMapping = {}) {
   renderObject(formData);
 
   const submitWrapper = document.createElement("div");
-  submitWrapper.classList.add("btn-wrapper-dark", "submit");
-
+  submitWrapper.classList.add("btn-wrapper-dark");
+  submitWrapper.classList.add("submit");
   const submitLink = document.createElement("a");
   submitLink.href = "javascript:void(0)";
-
   const submitSpan = document.createElement("span");
   submitSpan.textContent = "Створити";
-
   submitLink.appendChild(submitSpan);
   submitWrapper.appendChild(submitLink);
   form.appendChild(submitWrapper);
 }
-
 
 async function collectFormData(formElement) {
   const formData = new FormData(formElement);
@@ -280,8 +282,8 @@ export async function sendDataFromForm(data, photoFile, entityName) {
   }
 
   try {
-    const url = ` http://localhost:8080/${entityName}/new`;
     // const url = `https://avgust-corporate-server.fly.dev/${entityName}/new`;
+     const url = `https://avgust-corporate-server.fly.dev/${entityName}/new`;
 
     const hasPhotoField = Object.keys(data).some((key) =>
       key.toLowerCase().includes("photo")

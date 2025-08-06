@@ -1,43 +1,101 @@
+import { fieldNameMapping } from "./employee-mapping.js";
+
+
 export async function readEmployeeById(id) {
-  console.log(id);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  try {
-    const token = localStorage.getItem("jwt-token");
-    const response = await fetch(`http://localhost:8080/employees/${id}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Помилка завантаження даних: ${response.statusText}`);
+    try {
+        const token = localStorage.getItem("jwt-token");
+
+        // const response = await fetch("https://avgust-corporate-server.fly.dev/employees/all", {
+const response = await fetch(`http://localhost:8080/employees/${id}`, {
+
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                const errorBody = await response.json();
+                if (errorBody.errorCode === "AUTH_EXPIRED") {
+                   
+                    renderError401();
+                    localStorage.removeItem("jwt-token");
+                    return;
+                }
+            }
+            throw new Error(`Помилка завантаження даних: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log(data)
+        renderEmployeeCardById(data);
+        return data;
+
+    } catch (error) {
+        console.error("Помилка при отриманні співробітників:", error);
+        return [];
     }
-    const data = await response.json();
-    console.log(data);
-    renderEmployeeCard(data.data);
-    return data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
 }
 
-import { employeeFieldMapping } from "./employee-mapping.js";
 
-function renderEmployeeCard(employee) {
+function renderEmployeeCardById(employee) {
+  const fileInput = document.getElementById("file-input");
+  if (fileInput) fileInput.style.display = "none";
+
   const container = document.querySelector(".our-team-person-card-container");
-  container.id = employee.id;
+  container.classList.add("visible");
+  container.id = employee.employeeId;
+
   if (!employee) {
     container.innerHTML = "<p>Дані відсутні.</p>";
     return;
   }
 
+const parts = [
+  employee.country,
+  `м. ${employee.city}`
+];
+
+// Додаємо street, якщо є
+if (employee.street) {
+  parts.push(employee.street);
+}
+
+// Додаємо будинок, якщо є і не пусте
+if (employee.buildingNumber) {
+  parts.push(`буд. ${employee.buildingNumber}`);
+}
+
+// Додаємо квартиру, якщо є і не пусте
+if (employee.apartmentNumber) {
+  parts.push(`кв. ${employee.apartmentNumber}`);
+}
+
+const address = parts.join(", ");
+
+document.getElementById("residentialAddress").textContent = address;
+document.getElementById("inspirationAnswer").textContent = employee.inspiration;
+  if (employee.employmentStartDate) {
+            const startDate = new Date(employee.employmentStartDate).getTime();
+            const diff = Date.now() - startDate;
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            document.getElementById("experience").textContent = `${years} р. досвіду`;
+        } else {
+            document.getElementById("experience").textContent = "Не вказано";
+        }
+
+
+
   const setText = (id, value) => {
     const el = document.getElementById(id);
     if (el) el.textContent = value ?? "не заповнено";
   };
-
+  const workplaceTypeElem = document.getElementById("workplaceType");
+  if (workplaceTypeElem) {
+    workplaceTypeElem.textContent = employee.workplaceTypeName || "не заповнено";
+  }
   const setContact = (id, value) => {
     const container = document.getElementById(id);
     if (container) {
@@ -64,24 +122,21 @@ function renderEmployeeCard(employee) {
     return years > 0 ? `${years} роки(ів)` : "менше року";
   };
 
-  // Проходимося по всіх ключах маппера
-  Object.keys(employeeFieldMapping).forEach((fieldKey) => {
-    let value = employee[fieldKey];
+  Object.keys(fieldNameMapping).forEach((fieldKey) => {
+    if (fieldKey === "departmentName" || fieldKey === "positionName") return;
 
-    // Особлива логіка для деяких полів:
+    let value = employee[fieldKey];
     if (fieldKey === "dateOfBirth") {
       value = formatDate(value);
     } else if (fieldKey === "employmentStartDate") {
-      // Якщо треба, додаємо це поле в маппер і обробляємо
       value = calculateExperience(value);
     }
 
-    // Визначаємо, як виводити: контакт чи просте поле
     if (
       fieldKey === "personalMobile" ||
-      fieldKey === "corporateMobile" ||
+      fieldKey === "corporateMobile" || 
       fieldKey === "personalEmail" ||
-      fieldKey === "corporateEmail"
+      fieldKey === "workEmail"
     ) {
       setContact(fieldKey, value);
     } else {
@@ -89,37 +144,22 @@ function renderEmployeeCard(employee) {
     }
   });
 
-  // Фото
+  setText("department", employee.departmentName ?? "не заповнено");
+  setText("position", employee.positionName ?? "не заповнено");
+
   const photo = document.getElementById("photo");
   if (photo) {
     photo.src = employee.photo
       ? `data:image/jpeg;base64,${employee.photo}`
-      : "/img/team/default.jpg";
+      : "../../img/team/default.jpg";
   }
 
-  // Обробка кнопки закриття
   const closeBtn = document.querySelector(
     ".our-team-person-card-container .close-btn"
   );
   if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      if (container.classList.contains("visible")) {
-        container.classList.remove("visible");
-      }
-    });
+    closeBtn.onclick = () => {
+      container.classList.remove("visible");
+    };
   }
 }
-
-import { updateEmployeeById } from "./employee-update.js";
-document.querySelector(".employee-card__edit").addEventListener("click", () => {
-  console.log("start editing");
-  const cardSection = document
-    .querySelector(".employee-card__edit")
-    .closest(".our-team-person-card-container");
-  if (cardSection) {
-     document.querySelector(".our-team-person-card-container").classList.remove("visible");
-    updateEmployeeById(cardSection.id);
-  } else {
-    console.log("Картка не знайдена");
-  }
-});

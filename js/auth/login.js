@@ -7,6 +7,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
     try {
         const response = await fetch('http://localhost:8080/auth/login', {
+              //  const response = await fetch('https://avgust-corporate-server.fly.dev/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

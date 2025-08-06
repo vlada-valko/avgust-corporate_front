@@ -1,18 +1,29 @@
 import {renderError500} from "../../js/errors.js";
 import {renderError403} from "../../js/errors.js";
 import {renderError401} from "../../js/errors.js";
+import {readEmployeeById} from "./employee-read-by-id.js"
+
 
 const listContainer = document.getElementById('employee-list');
 if (listContainer && employeeContainer) {
     readAllEmployee();
 }
 
-
+  if(localStorage.getItem("userRole") === "ROLE_ADMIN" 
+    || localStorage.getItem("userRole") === "ROLE_MANAGER") {
+        document.getElementById("create-new-employee-btn").style.display = "flex";
+        document.getElementById("create-new-employee-btn").addEventListener("click",() => {
+            // document.querySelector(".create-new-employee__container").classList.add("visible");
+            // getCreateUserForms();
+        })
+    }
 export async function readAllEmployee() {
     try {
         const token = localStorage.getItem("jwt-token");
 
+        // const response = await fetch("https://avgust-corporate-server.fly.dev/employees/all", {
         const response = await fetch("http://localhost:8080/employees/all", {
+
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -34,6 +45,7 @@ export async function readAllEmployee() {
         }
 
         const data = await response.json();
+        console.log(data)
         renderEmployeeCards(data.data);
         return data;
 
@@ -56,7 +68,7 @@ function renderEmployeeCards(employees) {
     employees.forEach(employee => {
         const card = document.createElement("div");
         card.classList.add("employee-list__item");
-        card.id = employee.id;
+        card.id = employee.employeeId;
 
         // Photo
         const photoContainer = document.createElement("div");
@@ -99,7 +111,7 @@ function renderEmployeeCards(employees) {
 
         const position = document.createElement("p");
         position.classList.add("employee-list__item-position", "main-text");
-        position.innerText = employee.position || "Не вказано";
+        position.innerText = employee.positionName|| "Не вказано";
 
         const experience = document.createElement("p");
         experience.classList.add("employee-list__item-expirience", "main-text");
@@ -177,19 +189,10 @@ function renderEmployeeCards(employees) {
         // Add click event
         btnLink.addEventListener("click", () => {
             readEmployeeById(card.id);
-            console.log(card.id)
-            document.querySelector(".our-team-person-card-container").classList.add("visible")
         });
     });
 
-    if(localStorage.getItem("userRole") === "ROLE_ADMIN" 
-    || localStorage.getItem("userRole") === "ROLE_MANAGER") {
-        document.getElementById("create-new-employee-btn").style.display = "flex";
-        document.getElementById("create-new-employee-btn").addEventListener("click",() => {
-            // document.querySelector(".create-new-employee__container").classList.add("visible");
-            // getCreateUserForms();
-        })
-    }
+  
 }
 
 

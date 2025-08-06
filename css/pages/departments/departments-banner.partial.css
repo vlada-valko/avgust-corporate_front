@@ -1,0 +1,10 @@
+
+.departments-banner {
+    background: url(../../../img/departments/departments-banner.jpg) 0 0 / cover no-repeat;
+    color: var(--title-light-color);
+}
+@media(min-width:1150px){
+    .departments-banner {
+        background: url(../../../img/departments/departments-banner.jpg) 0 -200px / cover no-repeat;
+    }
+    }

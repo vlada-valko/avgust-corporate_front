@@ -6,19 +6,19 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-  border: 1px solid red;
+    align-items: center;
+  width: fit-content;
+  height: fit-content;
+  max-height: 70vh;
   top: calc(var(--header-height) + 50px);
   left: 50%;
   transform: translateX(-50%);
-  padding: 40px;
+  padding: 35px 35px;
   background: var(--light-gradient-background);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   z-index: 1000;
+  overflow-y: scroll;
 }
 @media(min-width: 1000px) {
   .entity-create-block .visible {
@@ -32,8 +32,8 @@
 
 .entity-create-block .close-btn button {
   position: absolute;
-  top: -20px;
-  right: -20px;
+  top: 10px;
+  right: 10px;
   width: 25px;
   height: 25px;
   transition: transform ease-in-out var(--animation-time);
@@ -41,4 +41,45 @@
 .entity-create-block .close-btn button:hover {
   transform: rotate(180deg);
   transition: transform ease-in-out var(--animation-time);
+}
+
+.entity-create-form form{
+display: flex;
+flex-direction: column;
+gap: 7px;
+justify-content: center;
+align-items: center;
+}
+
+
+.choices {
+  width: 100% !important;
+  background-color: white !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--dark-border-color) !important;
+  box-sizing: border-box;
+  min-height: 18px !important; /* зменшуємо мінімальну висоту */
+  font-size: 12px !important; /* можна зробити менший шрифт */
+  line-height: 1 !important;
+}
+
+.choices__inner {
+  min-height: 18px !important; /* висота внутрішньої обгортки */
+  padding: 0px 8px !important; /* внутрішні відступи — зробити меншими */
+  font-size: 14px !important;
+    background-color: white !important;
+
+}
+
+.choices__list--single {
+  line-height: 18px !important; /* висота рядка зі значенням */
+}
+
+.choices__input {
+  height: 28px !important; /* висота інпуту для пошуку */
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px !important;
 }
