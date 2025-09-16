@@ -112,7 +112,6 @@ function renderEmployeeCards(employees) {
         const position = document.createElement("p");
         position.classList.add("employee-list__item-position", "main-text");
         position.innerText = employee.positionName|| "Не вказано";
-
         const experience = document.createElement("p");
         experience.classList.add("employee-list__item-expirience", "main-text");
         if (employee.employmentStartDate) {

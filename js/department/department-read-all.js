@@ -1,7 +1,7 @@
 import { renderError500 } from "../../js/errors.js";
 import { renderError403 } from "../../js/errors.js";
 import { renderError401 } from "../../js/errors.js";
-// import { readDepartmentById } from "./department-read-by-id.js";  // Припустимо, є аналогічний модуль
+import { readDepartmentById } from "./department-read-by-id.js";  // Припустимо, є аналогічний модуль
 
 const listContainer = document.getElementById('department-list');
 if (listContainer) {
@@ -21,6 +21,7 @@ if (localStorage.getItem("userRole") === "ROLE_ADMIN"
 }
 
 export async function readAllDepartments() {
+    console.log("try to read all departments")
     try {
         const token = localStorage.getItem("jwt-token");
 
@@ -76,11 +77,22 @@ function renderDepartmentCards(departments) {
         const photo = document.createElement("img");
         photo.classList.add("department-list__item-photo");
         photo.alt = "Фото департаменту";
-        photo.src = department.photo 
-            ? (department.photo.startsWith('data:') 
-                ? department.photo 
-                : `data:image/jpeg;base64,${department.photo}`) 
-            : "/img/department-default.jpg"; // дефолтне фото для департаменту
+
+        
+        if (department.photo != null) {
+    // 1. Відрізаємо все до \uploads\
+    let relativePath = department.photo
+        .replace(/^.*\\uploads\\/, "uploads\\") 
+        .replace(/\\/g, "/"); // замінюємо бекслеші на /
+
+    // 2. Якщо немає слеша після "departments", додамо
+    relativePath = relativePath.replace(/(departments)([^/])/, "$1/$2");
+
+    // 3. Формуємо повний URL
+    photo.src = "http://localhost:8080/" + relativePath;
+} else {
+        photo.src = "/img/team/default.jpg"  ;
+}
 
         photoContainer.appendChild(photo);
 

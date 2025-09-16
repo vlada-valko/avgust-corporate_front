@@ -473,12 +473,7 @@ function toggleEntityCreateBlock(open = true) {
   }
 }
 
-async function resizeImage(
-  file,
-  maxWidth = 800,
-  maxHeight = 800,
-  quality = 0.7
-) {
+async function resizeImage(file, maxWidth = 800, maxHeight = 800, quality = 0.7) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -501,8 +496,9 @@ async function resizeImage(
 
         canvas.toBlob(
           (blob) => {
-            if (blob) resolve(blob);
-            else reject(new Error("Не вдалося створити зображення"));
+            if (!blob) return reject(new Error("Не вдалося створити файл"));
+            // 🔹 Повертаємо одразу файл
+            resolve(new File([blob], file.name, { type: file.type }));
           },
           file.type,
           quality
@@ -515,3 +511,4 @@ async function resizeImage(
     reader.readAsDataURL(file);
   });
 }
+

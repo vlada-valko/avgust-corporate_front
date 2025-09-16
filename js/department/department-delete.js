@@ -2,7 +2,7 @@ export async function deleteDepartment(id) {
     try {
         const token = localStorage.getItem("jwt-token");
         const response = await fetch(`http://localhost:8080/departments/${id}/delete`, {
-            method: "GET",
+            method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "Accept": "application/json",
@@ -15,7 +15,7 @@ export async function deleteDepartment(id) {
         } else {
             alert("Департамент успішно видалений!");
             setTimeout(() => {
-                window.location.reload(); // Перезавантажуємо сторінку після видалення
+                window.location.reload(); 
             }, 500);
         }
     } catch (error) {

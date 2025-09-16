@@ -52,6 +52,7 @@ function renderEmployeeCardById(employee) {
     container.innerHTML = "<p>Дані відсутні.</p>";
     return;
   }
+  
 
 const parts = [
   employee.country,

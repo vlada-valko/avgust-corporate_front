@@ -1,8 +1,9 @@
 
-.entity-create-block {
+.entity-update-block {
     display: none;
   }
-.entity-create-block.visible  {
+.entity-update-block.visible  {
+  background-color: aliceblue;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -21,16 +22,16 @@
   overflow-y: scroll;
 }
 @media(min-width: 1000px) {
-  .entity-create-block .visible {
+  .entity-update-block .visible {
      width: 500px;
   }
 }
-.entity-create-block  .title {
+.entity-update-block  .title {
   font-size: 20px;
   text-align: center;
 }
 
-.entity-create-block .close-btn button {
+.entity-update-block .close-btn button {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -38,12 +39,12 @@
   height: 25px;
   transition: transform ease-in-out var(--animation-time);
 }
-.entity-create-block .close-btn button:hover {
+.entity-update-block .close-btn button:hover {
   transform: rotate(180deg);
   transition: transform ease-in-out var(--animation-time);
 }
 
-.entity-create-form form{
+.entity-update-form form{
 display: flex;
 flex-direction: column;
 gap: 7px;

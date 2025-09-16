@@ -19,25 +19,25 @@
       data-hx-swap="outerHTML"
       data-hx-get="/partials/departments/departments-banner.patrial.html"
     ></section>
-    <div class="wrapper">
-
-      <!--entity-create-->
+          <!--entity-create-->
     <section
     data-hx-trigger="load"
     data-hx-swap="outerHTML"
     data-hx-get="/partials/modals/entity-create.html"
   ></section>
+      <section
+    data-hx-trigger="load"
+    data-hx-swap="outerHTML"
+    data-hx-get="/partials/modals/entity-update.html"
+  ></section>
+    <div class="wrapper">
 
   <section
   data-hx-trigger="load"
   data-hx-swap="outerHTML"
   data-hx-get="/partials/departments/departments-list.patrial.html"
 ></section>
-<section
-data-hx-trigger="load"
-data-hx-swap="outerHTML"
-data-hx-get="/partials/departments/department-card.partial.html"
-></section>
+
 <div
 data-hx-trigger="load"
 data-hx-swap="outerHTML"
@@ -54,5 +54,10 @@ data-hx-get="/modals/error-modal.html"
       crossorigin="anonymous"
     ></script>
     </div>
+    <section
+data-hx-trigger="load"
+data-hx-swap="outerHTML"
+data-hx-get="/partials/departments/department-card.partial.html"
+></section>
   </body>
 </html>

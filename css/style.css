@@ -7,5 +7,7 @@
 @import url(pages/account/departments.css);
 @import url(pages/team/team.css);
 @import url(pages/modals/entity-create.css);
+@import url(pages/modals/entity-update.css);
 @import url(pages/modals/error-modals.css);
 @import url(pages/departments/departments-banner.partial.css);
+@import url(pages/departments/department-card.partial.css);
