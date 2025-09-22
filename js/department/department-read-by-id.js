@@ -121,7 +121,7 @@ export function renderDepartmentById(department) {
   }
 
   //admin
-  document.querySelector(".department-card__admin-panel .employee-card__delete")
+  document.querySelector(".department-card__admin-panel .department-card__delete")
   .addEventListener("click", () => {
     const result = confirm("Ви впевнені, що хочете видалити департамент?");
 if (result) {
@@ -130,8 +130,8 @@ if (result) {
     console.log("Видалення скасовано");
 }
   })
-
-  document.querySelector(".department-card__admin-panel .employee-card__edit")
+  
+  document.querySelector(".department-card__admin-panel .department-card__edit")
   .addEventListener("click",()=>{
     updateDepartment(department.id);
   })

@@ -1,5 +1,6 @@
 import { fieldNameMapping } from "./employee-mapping.js";
-
+import { deleteEmployee } from "./employee-delete.js";
+import { updateEmployee } from "./employee-update.js";
 
 export async function readEmployeeById(id) {
     try {
@@ -148,12 +149,21 @@ document.getElementById("inspirationAnswer").textContent = employee.inspiration;
   setText("department", employee.departmentName ?? "не заповнено");
   setText("position", employee.positionName ?? "не заповнено");
 
-  const photo = document.getElementById("photo");
-  if (photo) {
-    photo.src = employee.photo
-      ? `data:image/jpeg;base64,${employee.photo}`
-      : "../../img/team/default.jpg";
-  }
+     // Photo
+    const photoContainer = document.querySelector(".employee-card__photo-container img");
+if (employee.photo != null) {
+  let relativePath = employee.photo;
+  relativePath = relativePath.replace(/\\/g, "/");
+  relativePath = relativePath.replace(/^.*?(uploads\/.*)/, "$1");
+  relativePath = relativePath.replace(/(employees)([^/])/, "$1/$2");
+  relativePath = relativePath.replace(/(employees\/)(.*)/, (match, p1, p2) => {
+    return p1 + encodeURIComponent(p2);
+  });
+  const photoUrl = "http://localhost:8080/" + relativePath;
+  photoContainer.src = photoUrl;
+} else {
+  photoContainer.src = "/img/team/default.jpg";
+}
 
   const closeBtn = document.querySelector(
     ".our-team-person-card-container .close-btn"
@@ -163,4 +173,23 @@ document.getElementById("inspirationAnswer").textContent = employee.inspiration;
       container.classList.remove("visible");
     };
   }
+
+
+  //admin
+  document.querySelector(".employee-card__admin-panel .employee-card__delete")
+  .addEventListener("click", () => {
+    const result = confirm("Ви впевнені, що хочете видалити?");
+if (result) {
+    deleteEmployee(employee.id);
+} else {
+    console.log("Видалення скасовано");
+}
+  })
+  
+  document.querySelector(".employee-card__admin-panel .employee-card__edit")
+  .addEventListener("click",()=>{
+    updateEmployee(employee.id);
+  })
+  
+  
 }

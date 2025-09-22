@@ -1,6 +1,5 @@
 export const fieldNameMapping = {
     employeeDTO: "Створити працівника",
-//   id: "Ідентифікатор",
   userId: "Користувач",
   firstName: "Ім'я",
   lastName: "Прізвище",

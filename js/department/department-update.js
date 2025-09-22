@@ -39,7 +39,7 @@ async function renderDepartmentUpdateForm(data) {
     }
 
     const form = document.createElement("form");
-    form.classList.add("department-update-form");
+    form.classList.add("entity-update-form");
     updateDepartmentContainer.innerHTML = ""; // очищаємо попередній вміст
     updateDepartmentContainer.appendChild(form);
 

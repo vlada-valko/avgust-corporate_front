@@ -10,14 +10,6 @@ if (listContainer) {
 
 if (localStorage.getItem("userRole") === "ROLE_ADMIN" 
     || localStorage.getItem("userRole") === "ROLE_MANAGER") {
-    const createBtn = document.getElementById("create-new-department-btn");
-    if (createBtn) {
-        createBtn.style.display = "flex";
-        createBtn.addEventListener("click", () => {
-            // Логіка відкриття форми створення департаменту
-            // document.querySelector(".create-new-department__container").classList.add("visible");
-        });
-    }
 }
 
 export async function readAllDepartments() {

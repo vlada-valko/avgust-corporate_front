@@ -44,7 +44,7 @@
   transition: transform ease-in-out var(--animation-time);
 }
 
-.entity-update-form form{
+.entity-update-form{
 display: flex;
 flex-direction: column;
 gap: 7px;
