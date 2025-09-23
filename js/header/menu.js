@@ -1,7 +1,9 @@
+
 const body = document.querySelector("body");
 
 /* ==== BURGER MENU ==== */
 const btnBurger = document.querySelector(".header__menu-burger");
+const btnBurgerLink = document.querySelector(".header__menu-burger a");
 const burgerLine = document.querySelector(".header__menu-burger-lines");
 
 /* MAIN MENU */
@@ -15,6 +17,7 @@ const personalaccountSubmenu = document.querySelector(".header__personal-account
 /* Функція закриття меню */
 const closeMenu = () => {
     btnBurger.classList.remove("menu-visible");
+    btnBurgerLink.classList.remove("menu-visible");
     burgerLine.classList.remove("menu-visible");
     menuAndPersonalaccountBlock.classList.remove("menu-visible");
 
@@ -40,6 +43,7 @@ btnBurger.addEventListener("click", () => {
         closeMenu();
     } else {
         btnBurger.classList.add("menu-visible");
+        btnBurgerLink.classList.add("menu-visible");
         burgerLine.classList.add("menu-visible");
         menuAndPersonalaccountBlock.classList.add("menu-visible");
 

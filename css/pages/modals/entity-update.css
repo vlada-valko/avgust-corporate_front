@@ -44,12 +44,13 @@
   transition: transform ease-in-out var(--animation-time);
 }
 
-.entity-update-form{
+.entity-update-form form{
 display: flex;
 flex-direction: column;
 gap: 7px;
 justify-content: center;
 align-items: center;
+margin-bottom: 10px;
 }
 
 

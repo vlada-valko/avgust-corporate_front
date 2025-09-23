@@ -85,8 +85,13 @@
   gap: 20px;
   width: 100%;
 }
-.department-card__mission {
+.department-card__mission p {
   font-style: italic;
+  width: 100%;
+    white-space: pre-wrap;   /* зберігає переноси та пробіли */
+  word-wrap: break-word;   /* переносить довгі слова */
+  overflow-wrap: break-word; /* сучасний аналог word-wrap */
+  line-height: 1.5;  
 }
 .department-card__description {
   width: 100%;

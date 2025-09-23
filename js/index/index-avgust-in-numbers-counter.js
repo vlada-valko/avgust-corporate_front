@@ -11,7 +11,7 @@ try {
         throw new Error(`Помилка завантаження даних: ${response.statusText}`);
     }
     const data = await response.json();
-    return data.employeeCount;  
+    return data.data;  
 
 } catch (error) {
     console.error(error);

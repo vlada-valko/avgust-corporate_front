@@ -93,18 +93,25 @@ export function renderDepartmentById(department) {
     : (goalsContainer.innerHTML = "<p>Дані відсутні.</p>");
 
   //mainTasks
-  const mainTasksContainer = document.getElementById("department-mainTasks");
-  department.mainTasks
-    ? (mainTasksContainer.innerHTML = department.mainTasks)
-    : (mainTasksContainer.innerHTML = "<p>Дані відсутні.</p>");
+const mainTasksContainer = document.getElementById("department-mainTasks");
+if (department.mainTasks) {
+    const formattedText = department.mainTasks.replace(/\. /g, '.<br>');
+    mainTasksContainer.innerHTML = formattedText;
+} else {
+    mainTasksContainer.innerHTML = "<p>Дані відсутні.</p>";
+}
 
-  //workPrinciples
-  const workPrinciplesContainer = document.getElementById(
-    "department-workPrinciples"
-  );
-  department.workPrinciples
-    ? (workPrinciplesContainer.innerHTML = department.workPrinciples)
-    : (workPrinciplesContainer.innerHTML = "<p>Дані відсутні.</p>");
+
+// workPrinciples
+const workPrinciplesContainer = document.getElementById("department-workPrinciples");
+
+if (department.workPrinciples) {
+    const formattedText = department.workPrinciples.replace(/\.(\s|$)/g, '.<br>');
+    workPrinciplesContainer.innerHTML = formattedText;
+} else {
+    workPrinciplesContainer.innerHTML = "<p>Дані відсутні.</p>";
+}
+
 
     //team
   const departmentTeam = department.employees;

@@ -14,6 +14,8 @@ if (
 ) {
   document.getElementById("create-new-employee-btn").style.display = "flex";
 }
+
+
 export async function readAllEmployee() {
   try {
     const token = localStorage.getItem("jwt-token");

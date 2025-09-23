@@ -1,7 +1,6 @@
-import { renderError500 } from "../../js/errors.js";
-import { renderError403 } from "../../js/errors.js";
-import { renderError401 } from "../../js/errors.js";
 import { readDepartmentById } from "./department-read-by-id.js";  // Припустимо, є аналогічний модуль
+import { createDepartment } from "./department-create.js";  // Припустимо, є аналогічний модуль
+
 
 const listContainer = document.getElementById('department-list');
 if (listContainer) {
@@ -10,6 +9,13 @@ if (listContainer) {
 
 if (localStorage.getItem("userRole") === "ROLE_ADMIN" 
     || localStorage.getItem("userRole") === "ROLE_MANAGER") {
+    const createBtn = document.getElementById("create-new-department-btn");
+    if (createBtn) {
+        createBtn.style.display = "flex";
+        createBtn.addEventListener("click", () => {
+         createDepartment();
+        });
+    }
 }
 
 export async function readAllDepartments() {
@@ -29,7 +35,6 @@ export async function readAllDepartments() {
             if (response.status === 401) {
                 const errorBody = await response.json();
                 if (errorBody.errorCode === "AUTH_EXPIRED") {
-                    renderError401();
                     localStorage.removeItem("jwt-token");
                     return;
                 }

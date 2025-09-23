@@ -29,8 +29,16 @@
 .header__menu-burger {
     display: block;
     width: 24px;
+    height: 24px;
+    position: relative;
+    top: 7px;
+    cursor: pointer;
+    transition: 0.2s ease-out;
+}
+.header__menu-burger a{
+    display: block;
+    width: 24px;
     height: 2px;
-
     position: relative;
     top: 7px;
     background: var(--dark-border-color);
@@ -38,7 +46,7 @@
     transition: 0.2s ease-out;
 }
 
-.header__menu-burger.menu-visible {
+.header__menu-burger a.menu-visible {
     background: transparent;
 }
 

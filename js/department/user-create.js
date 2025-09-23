@@ -1,8 +1,7 @@
-/* import { renderError500 } from "./errors.js";
+import { renderError500 } from "./errors.js";
 import { renderError403 } from "./errors.js";
 import { renderError401 } from "./errors.js";
 
-console.log("Скрипт підключено");
 const form = document.querySelector(".entity-create-form form");
 
 document.querySelectorAll(".btn-wrapper-dark[id^='create-']").forEach((btn) => {
@@ -512,4 +511,3 @@ async function resizeImage(file, maxWidth = 800, maxHeight = 800, quality = 0.7)
   });
 }
 
-*/

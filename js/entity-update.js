@@ -1,11 +1,11 @@
 /* import { renderError500 } from "./errors.js";
 import { renderError403 } from "./errors.js";
-import { renderError401 } from "./errors.js";
+import { renderError401 } from "./errors.js"; 
 
-console.log("Скрипт підключено");
-const form = document.querySelector(".entity-create-form form");
+console.log("запускаємо скрипт онолвення моделі");
+const form = document.querySelector(".entity-update-form");
 
-document.querySelectorAll(".btn-wrapper-dark[id^='create-']").forEach((btn) => {
+document.querySelectorAll(".btn-wrapper-dark[id^='update-']").forEach((btn) => {
   btn.addEventListener("click", async () => {
     toggleEntityCreateBlock(true);
     const data = await getCreateFormData(pluralize(btn.id));
@@ -512,4 +512,3 @@ async function resizeImage(file, maxWidth = 800, maxHeight = 800, quality = 0.7)
   });
 }
 
-*/
