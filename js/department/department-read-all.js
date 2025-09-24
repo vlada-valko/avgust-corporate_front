@@ -1,5 +1,5 @@
 import { readDepartmentById } from "./department-read-by-id.js";  // Припустимо, є аналогічний модуль
-import { createDepartment } from "./department-create.js";  // Припустимо, є аналогічний модуль
+//import { createDepartment } from "./department-create.js";  // Припустимо, є аналогічний модуль
 
 
 const listContainer = document.getElementById('department-list');
@@ -13,7 +13,7 @@ if (localStorage.getItem("userRole") === "ROLE_ADMIN"
     if (createBtn) {
         createBtn.style.display = "flex";
         createBtn.addEventListener("click", () => {
-         createDepartment();
+        // createDepartment();
         });
     }
 }

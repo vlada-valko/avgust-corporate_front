@@ -1,8 +1,7 @@
-
-/*export async function createDepartment() {
+/*export async function createEmployee() {
   try {
     const token = localStorage.getItem("jwt-token");
-    const response = await fetch("http://localhost:8080/departments/new", {
+    const response = await fetch("http://localhost:8080/employees/new", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -13,13 +12,13 @@
     if (!response.ok) throw new Error(`Помилка завантаження: ${response.statusText}`);
 
     const data = await response.json();
-    renderDepartmentCreateForm(data.data); // передаємо тільки data.data
+    renderEmployeeCreateForm(data.data); // передаємо тільки data.data
   } catch (error) {
     console.error("Помилка при завантаженні форми:", error);
   }
 }
 
-async function renderDepartmentCreateForm(serverData) {
+async function renderEmployeeCreateForm(serverData) {
   const container = document.querySelector(".entity-create-block");
   container.classList.add("visible");
 
@@ -27,29 +26,32 @@ async function renderDepartmentCreateForm(serverData) {
     container.classList.remove("visible");
   });
 
-  if (!serverData?.departmentDTO) {
+  if (!serverData?.employeeDTO) {
     container.innerHTML = "<p>Дані відсутні.</p>";
     return;
   }
 
-  const { departmentDTO, managers = [] } = serverData;
+  // беремо DTO співробітника
+  const { employeeDTO } = serverData;
   const form = document.querySelector(".entity-create-form form");
   form.innerHTML = "";
 
   const formData = {};
 
-  const mappingModule = await import("../mapping/department-mapping.js");
+  // динамічне завантаження мапінгу
+  const mappingModule = await import("../mapping/employee-mapping.js");
   const fieldMapping = mappingModule.fieldNameMapping;
 
-  for (const [key, value] of Object.entries(departmentDTO)) {
-    if (["employees", "positions", "managerName"].includes(key)) continue;
+  for (const [key, value] of Object.entries(employeeDTO)) {
+    if (!fieldMapping[key]) continue;
 
     const label = document.createElement("label");
     label.classList.add("title");
     label.textContent = `${(fieldMapping[key] || key).replace(/^./, c => c.toUpperCase())}:`;
     form.appendChild(label);
 
-    if (key === "managerId") {
+    if (key === "departmentId") {
+      // select для департаментів
       const select = document.createElement("select");
       select.name = key;
 
@@ -58,10 +60,39 @@ async function renderDepartmentCreateForm(serverData) {
       emptyOption.textContent = "— Не вибрано —";
       select.appendChild(emptyOption);
 
-      managers.forEach(m => {
+      serverData.departments.forEach(dep => {
         const option = document.createElement("option");
-        option.value = m.id;
-        option.textContent = m.name;
+        option.value = dep.id;
+        option.textContent = dep.name;
+        select.appendChild(option);
+      });
+
+      form.appendChild(select);
+      select.addEventListener("change", () => {
+  if (select.value) {
+    formData["gender"] = select.value;
+  } else {
+    delete formData["gender"];
+  }
+});
+      formData[key] = null;
+
+      select.addEventListener("change", () => (formData[key] = select.value || null));
+
+    } else if (key === "managerId") {
+      // select для менеджера
+      const select = document.createElement("select");
+      select.name = key;
+
+      const emptyOption = document.createElement("option");
+      emptyOption.value = "";
+      emptyOption.textContent = "— Не вибрано —";
+      select.appendChild(emptyOption);
+
+      serverData.users.forEach(u => {
+        const option = document.createElement("option");
+        option.value = u.id;
+        option.textContent = u.name;
         select.appendChild(option);
       });
 
@@ -94,14 +125,14 @@ async function renderDepartmentCreateForm(serverData) {
   createButton.addEventListener("click", async () => {
     try {
       const token = localStorage.getItem("jwt-token");
-      const url = "http://localhost:8080/departments/new";
+      const url = "http://localhost:8080/employees/new";
 
       const jsonData = { ...formData };
       delete jsonData.photo;
 
       const multipartData = new FormData();
       multipartData.append(
-        "departmentDTO",
+        "employeeDTO",
         new Blob([JSON.stringify(jsonData)], { type: "application/json" })
       );
 

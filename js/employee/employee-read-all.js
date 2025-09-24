@@ -2,6 +2,10 @@ import { renderError500 } from "../../js/errors.js";
 import { renderError403 } from "../../js/errors.js";
 import { renderError401 } from "../../js/errors.js";
 import { readEmployeeById } from "./employee-read-by-id.js";
+//import { createEmployee } from "./employee-create.js";
+
+
+
 
 const listContainer = document.getElementById("employee-list");
 if (listContainer && employeeContainer) {
@@ -12,15 +16,18 @@ if (
   localStorage.getItem("userRole") === "ROLE_ADMIN" ||
   localStorage.getItem("userRole") === "ROLE_MANAGER"
 ) {
-  document.getElementById("create-new-employee-btn").style.display = "flex";
-}
+ const createBtn = document.getElementById("create-new-employee-btn");
+    if (createBtn) {
+        createBtn.style.display = "flex";
+        createBtn.addEventListener("click", () => {
+    //     createEmployee();
+        });}}
 
 
 export async function readAllEmployee() {
   try {
     const token = localStorage.getItem("jwt-token");
 
-    // const response = await fetch("https://avgust-corporate-server.fly.dev/employees/all", {
     const response = await fetch("http://localhost:8080/employees/all", {
       method: "GET",
       headers: {
