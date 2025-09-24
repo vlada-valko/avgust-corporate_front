@@ -1,4 +1,5 @@
-export async function getCreateFormData() {
+
+/*export async function createDepartment() {
   try {
     const token = localStorage.getItem("jwt-token");
     const response = await fetch(`http://localhost:8080/departments/new`, {
@@ -401,88 +402,8 @@ function renderErrorFields(errors) {
       errorSpan.style.fontSize = "0.9em";
       errorSpan.textContent = message;
 
-      field.insertAdjacentElement("afterend", errorSpan);
-    }
+      field.insertAdjacentElement("afterend", span);
+    });
   }
 }
-
-function pluralize(endpoint) {
-  const baseName = endpoint.replace("create-", "");
-  if (
-    baseName.endsWith("y") &&
-    !"aeiou".includes(baseName[baseName.length - 2])
-  ) {
-    return baseName.slice(0, -1) + "ies"; // city → cities
-  }
-  if (
-    baseName.endsWith("s") ||
-    baseName.endsWith("x") ||
-    baseName.endsWith("z") ||
-    baseName.endsWith("sh") ||
-    baseName.endsWith("ch")
-  ) {
-    return baseName + "es";
-  }
-  return baseName + "s";
-}
-function toSingular(entityName) {
-  if (entityName.endsWith("ies")) return entityName.slice(0, -3) + "y";
-  if (entityName.endsWith("s")) return entityName.slice(0, -1);
-  return entityName;
-}
-function toggleEntityCreateBlock(open = true) {
-  const block = document.querySelector(".entity-create-block");
-  const closeBtn = block.querySelector(".close-btn button");
-
-  if (open) {
-    block.classList.add("visible");
-
-    if (!closeBtn.dataset.listenerAttached) {
-      closeBtn.addEventListener("click", () => {
-        toggleEntityCreateBlock(false);
-      });
-      closeBtn.dataset.listenerAttached = "true";
-    }
-  } else {
-    block.classList.remove("visible");
-  }
-}
-
-async function resizeImage(file, maxWidth = 800, maxHeight = 800, quality = 0.7) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        let { width, height } = img;
-
-        // Пропорційне зменшення
-        if (width > maxWidth || height > maxHeight) {
-          const scale = Math.min(maxWidth / width, maxHeight / height);
-          width = Math.round(width * scale);
-          height = Math.round(height * scale);
-        }
-
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) return reject(new Error("Не вдалося створити файл"));
-            // 🔹 Повертаємо одразу файл
-            resolve(new File([blob], file.name, { type: file.type }));
-          },
-          file.type,
-          quality
-        );
-      };
-      img.onerror = reject;
-      img.src = event.target.result;
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
+*/

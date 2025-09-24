@@ -1,4 +1,4 @@
-/* import { renderError500 } from "./errors.js";
+import { renderError500 } from "./errors.js";
 import { renderError403 } from "./errors.js";
 import { renderError401 } from "./errors.js";
 
@@ -511,5 +511,3 @@ async function resizeImage(file, maxWidth = 800, maxHeight = 800, quality = 0.7)
     reader.readAsDataURL(file);
   });
 }
-
-*/
