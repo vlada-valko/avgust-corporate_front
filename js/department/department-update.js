@@ -1,7 +1,7 @@
 export async function updateDepartment(id) {
     try {
         const token = localStorage.getItem("jwt-token");
-        const response = await fetch(`http://localhost:8080/departments/${id}/edit`, {
+        const response = await fetch(`http://185.25.119.99:8080/departments/${id}/edit`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -87,12 +87,15 @@ async function renderDepartmentUpdateForm(serverData) {
             form.appendChild(label);
 
             if (value) {
-                  let relativePath = departmentDTO.photo
-      .replace(/^.*\\uploads\\/, "uploads\\")
-      .replace(/\\/g, "/");
-    relativePath = relativePath.replace(/(departments)([^/])/, "$1/$2");
+               let relativePath = departmentDTO.photo;
+  relativePath = relativePath.replace(/^\/?avgust_corporate\/?/, "");
+  relativePath = relativePath.replace(/\\/g, "/");
+  relativePath = relativePath.replace(/(departments)([^/])/, "$1/$2");
+  const parts = relativePath.split("/");
+  const fileName = encodeURIComponent(parts.pop());
+  const encodedPath = parts.join("/") + "/" + fileName;
                 const imgPreview = document.createElement("img");
-                imgPreview.src = "http://localhost:8080/" + relativePath;;
+                imgPreview.src = "http://185.25.119.99:8080/" + encodedPath;;
                 imgPreview.alt = "Прев’ю";
                 imgPreview.style.maxWidth = "150px";
                 imgPreview.style.display = "block";
@@ -129,7 +132,7 @@ async function renderDepartmentUpdateForm(serverData) {
 saveButton.addEventListener("click", async () => {
   try {
     const token = localStorage.getItem("jwt-token");
-    const url = `http://localhost:8080/departments/${departmentDTO.id}/edit`;
+    const url = `http://185.25.119.99:8080/departments/${departmentDTO.id}/edit`;
 
     // 🔹 завжди multipart
     const jsonData = { ...formData };

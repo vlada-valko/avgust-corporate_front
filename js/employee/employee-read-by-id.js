@@ -6,8 +6,7 @@ export async function readEmployeeById(id) {
     try {
         const token = localStorage.getItem("jwt-token");
 
-        // const response = await fetch("https://avgust-corporate-server.fly.dev/employees/all", {
-const response = await fetch(`http://localhost:8080/employees/${id}`, {
+const response = await fetch(`http://185.25.119.99:8080/employees/${id}`, {
 
             method: "GET",
             headers: {
@@ -60,10 +59,14 @@ function renderEmployeeCardById(employee) {
   }
   
 
-const parts = [
-  employee.country,
-  `м. ${employee.city}`
-];
+const parts = [];
+
+if(employee.country) {
+  parts.push(employee.country);
+}
+if(employee.city){
+  parts.push( `м. ${employee.city}`);
+}
 
 // Додаємо street, якщо є
 if (employee.street) {
@@ -79,8 +82,12 @@ if (employee.buildingNumber) {
 if (employee.apartmentNumber) {
   parts.push(`кв. ${employee.apartmentNumber}`);
 }
-
-const address = parts.join(", ");
+let address = "";
+if(parts.length>0) {
+  address = parts.join(", ")
+} else {
+  address = "Ніяких даних немає("
+}
 
 document.getElementById("residentialAddress").textContent = address;
 document.getElementById("inspirationAnswer").textContent = employee.inspiration;
@@ -90,7 +97,7 @@ document.getElementById("inspirationAnswer").textContent = employee.inspiration;
             const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
             document.getElementById("experience").textContent = `${years} р. досвіду`;
         } else {
-            document.getElementById("experience").textContent = "Не вказано";
+            document.getElementById("experience").textContent = "Працює з часів динозаврів. Точно не знаємо";
         }
 
 
@@ -99,6 +106,7 @@ document.getElementById("inspirationAnswer").textContent = employee.inspiration;
     const el = document.getElementById(id);
     if (el) el.textContent = value ?? "не заповнено";
   };
+  
   const workplaceTypeElem = document.getElementById("workplaceType");
   if (workplaceTypeElem) {
     workplaceTypeElem.textContent = employee.workplaceTypeName || "не заповнено";
@@ -118,7 +126,7 @@ document.getElementById("inspirationAnswer").textContent = employee.inspiration;
   };
 
   const calculateExperience = (startDate) => {
-    if (!startDate) return "не заповнено";
+    if (!startDate) return "Працює з часів динозаврів. Точно не знаємо";
     const start = new Date(startDate);
     const now = new Date();
     let years = now.getFullYear() - start.getFullYear();
@@ -129,30 +137,41 @@ document.getElementById("inspirationAnswer").textContent = employee.inspiration;
     return years > 0 ? `${years} роки(ів)` : "менше року";
   };
 
-  Object.keys(fieldNameMapping).forEach((fieldKey) => {
-    if (fieldKey === "departmentName" || fieldKey === "positionName") return;
+ Object.keys(fieldNameMapping).forEach((fieldKey) => {
+  if (fieldKey === "departmentName" || fieldKey === "positionName") return;
 
-    let value = employee[fieldKey];
-    if (fieldKey === "dateOfBirth") {
-      value = formatDate(value);
-    } else if (fieldKey === "employmentStartDate") {
-      value = calculateExperience(value);
+  let value = employee[fieldKey];
+  if (fieldKey === "dateOfBirth") {
+    value = formatDate(value);
+  } else if (fieldKey === "employmentStartDate") {
+    value = calculateExperience(value);
+  }
+
+  // Контакти
+  if (
+    fieldKey === "personalMobile" ||
+    fieldKey === "corporateMobile" || 
+    fieldKey === "personalEmail" ||
+    fieldKey === "workEmail"
+  ) {
+    const container = document.getElementById(fieldKey);
+    if (container) {
+      if (value && value.trim() !== "") {
+        container.style.display = "flex"; // показуємо блок
+        const p = container.querySelector("p.main-text");
+        if (p) p.textContent = value;
+      } else {
+        container.style.display = "none"; // ховаємо блок
+      }
     }
+  } else {
+    setText(fieldKey, value);
+  }
+});
 
-    if (
-      fieldKey === "personalMobile" ||
-      fieldKey === "corporateMobile" || 
-      fieldKey === "personalEmail" ||
-      fieldKey === "workEmail"
-    ) {
-      setContact(fieldKey, value);
-    } else {
-      setText(fieldKey, value);
-    }
-  });
 
-  setText("department", employee.departmentName ?? "не заповнено");
-  setText("position", employee.positionName ?? "не заповнено");
+  setText("department", employee.departmentName ?? "Департамент не визначено");
+  setText("position", employee.positionName ?? "Посада в дорозі...");
 
      // Photo
     const photoContainer = document.querySelector(".employee-card__photo-container img");
@@ -164,7 +183,7 @@ if (employee.photo != null) {
   relativePath = relativePath.replace(/(employees\/)(.*)/, (match, p1, p2) => {
     return p1 + encodeURIComponent(p2);
   });
-  const photoUrl = "http://localhost:8080/" + relativePath;
+  const photoUrl = "http://185.25.119.99:8080/" + relativePath;
   photoContainer.src = photoUrl;
 } else {
   photoContainer.src = "/img/team/default.jpg";
@@ -188,7 +207,7 @@ if (employee.photo != null) {
 if (result) {
     deleteEmployee(employee.id);
 } else {
-    console.log("Видалення скасовано");
+    console.log("Видалення скасовано!");
 }
   })
   

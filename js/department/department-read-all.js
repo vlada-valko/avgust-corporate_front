@@ -23,7 +23,7 @@ export async function readAllDepartments() {
     try {
         const token = localStorage.getItem("jwt-token");
 
-        const response = await fetch("http://localhost:8080/departments/all", {
+        const response = await fetch("http://185.25.119.99:8080/departments/all", {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -77,16 +77,16 @@ function renderDepartmentCards(departments) {
 
         
         if (department.photo != null) {
-    // 1. Відрізаємо все до \uploads\
-    let relativePath = department.photo
-        .replace(/^.*\\uploads\\/, "uploads\\") 
-        .replace(/\\/g, "/"); // замінюємо бекслеші на /
 
-    // 2. Якщо немає слеша після "departments", додамо
-    relativePath = relativePath.replace(/(departments)([^/])/, "$1/$2");
-
-    // 3. Формуємо повний URL
-    photo.src = "http://localhost:8080/" + relativePath;
+let relativePath = department.photo;
+  relativePath = relativePath.replace(/^\/?avgust_corporate\/?/, "");
+  relativePath = relativePath.replace(/\\/g, "/");
+  relativePath = relativePath.replace(/(departments)([^/])/, "$1/$2");
+  const parts = relativePath.split("/");
+  const fileName = encodeURIComponent(parts.pop());
+  const encodedPath = parts.join("/") + "/" + fileName;
+            
+    photo.src = "http://185.25.119.99:8080/" + encodedPath;
 } else {
         photo.src = "/img/team/default.jpg"  ;
 }

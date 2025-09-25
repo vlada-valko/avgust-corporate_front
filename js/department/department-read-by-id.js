@@ -8,7 +8,7 @@ export async function readDepartmentById(id) {
   console.log("try to read id: " + id);
   try {
     const token = localStorage.getItem("jwt-token");
-    const response = await fetch(`http://localhost:8080/departments/${id}`, {
+    const response = await fetch(`http://185.25.119.99:8080/departments/${id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -47,13 +47,22 @@ export function renderDepartmentById(department) {
   const photoContainer = document.querySelector(
     ".department-card__photo-container img"
   );
-  if (department.photo) {
-    let relativePath = department.photo
-      .replace(/^.*\\uploads\\/, "uploads\\")
-      .replace(/\\/g, "/");
-    relativePath = relativePath.replace(/(departments)([^/])/, "$1/$2");
-    photoContainer.src = "http://localhost:8080/" + relativePath;
-  } else {
+
+
+if (department.photo) {
+  let relativePath = department.photo;
+  relativePath = relativePath.replace(/^\/?avgust_corporate\/?/, "");
+  relativePath = relativePath.replace(/\\/g, "/");
+  relativePath = relativePath.replace(/(departments)([^/])/, "$1/$2");
+  const parts = relativePath.split("/");
+  const fileName = encodeURIComponent(parts.pop());
+  const encodedPath = parts.join("/") + "/" + fileName;
+
+  photoContainer.src = "http://185.25.119.99:8080/" + encodedPath;
+}
+
+
+ else {
     photoContainer.src = "/img/team/default.jpg";
   }
 

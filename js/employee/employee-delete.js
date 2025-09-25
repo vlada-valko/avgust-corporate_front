@@ -1,7 +1,7 @@
 export async function deleteEmployee(id) {
     try {
         const token = localStorage.getItem("jwt-token");
-        const response = await fetch(`http://localhost:8080/employees/${id}/delete`, {
+        const response = await fetch(`http://185.25.119.99:8080/employees/${id}/delete`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,

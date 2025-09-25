@@ -4,11 +4,8 @@ import { renderError401 } from "../../js/errors.js";
 import { readEmployeeById } from "./employee-read-by-id.js";
 //import { createEmployee } from "./employee-create.js";
 
-
-
-
 const listContainer = document.getElementById("employee-list");
-if (listContainer && employeeContainer) {
+if (listContainer) {
   readAllEmployee();
 }
 
@@ -16,19 +13,20 @@ if (
   localStorage.getItem("userRole") === "ROLE_ADMIN" ||
   localStorage.getItem("userRole") === "ROLE_MANAGER"
 ) {
- const createBtn = document.getElementById("create-new-employee-btn");
-    if (createBtn) {
-        createBtn.style.display = "flex";
-        createBtn.addEventListener("click", () => {
-    //     createEmployee();
-        });}}
-
+  const createBtn = document.getElementById("create-new-employee-btn");
+  if (createBtn) {
+    createBtn.style.display = "flex";
+    createBtn.addEventListener("click", () => {
+      // createEmployee();
+    });
+  }
+}
 
 export async function readAllEmployee() {
   try {
     const token = localStorage.getItem("jwt-token");
 
-    const response = await fetch("http://localhost:8080/employees/all", {
+    const response = await fetch("http://185.25.119.99:8080/employees/all", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -60,6 +58,8 @@ export async function readAllEmployee() {
 
 function renderEmployeeCards(employees) {
   const container = document.querySelector(".employee-list__container");
+  if (!container) return;
+
   container.innerHTML = "";
 
   if (!employees || employees.length === 0) {
@@ -79,24 +79,16 @@ function renderEmployeeCards(employees) {
     const photo = document.createElement("img");
     photo.classList.add("employee-list__item-photo");
     photo.alt = "";
-if (employee.photo != null) {
-  let relativePath = employee.photo;
-  relativePath = relativePath.replace(/\\/g, "/");
-  relativePath = relativePath.replace(/^.*?(uploads\/.*)/, "$1");
-  relativePath = relativePath.replace(/(employees)([^/])/, "$1/$2");
-  relativePath = relativePath.replace(/(employees\/)(.*)/, (match, p1, p2) => {
-    return p1 + encodeURIComponent(p2);
-  });
 
-  // 5. Формуємо повний URL
-  const photoUrl = "http://localhost:8080/" + relativePath;
-  photo.src = photoUrl;
+    if (employee.photo) {
+      let relativePath = employee.photo.replace(/^\/?avgust_corporate\/?/, "")
+        .replace(/\\/g, "/")
+        .replace(/(employees)([^/])/g, "$1/$2");
 
-} else {
-  photo.src = "/img/team/default.jpg";
-}
-
-
+      photo.src = `http://185.25.119.99:8080/${relativePath}`;
+    } else {
+      photo.src = "/img/team/default.jpg";
+    }
 
     photoContainer.appendChild(photo);
 
@@ -128,7 +120,8 @@ if (employee.photo != null) {
 
     const position = document.createElement("p");
     position.classList.add("employee-list__item-position", "main-text");
-    position.innerText = employee.positionName || "Не вказано";
+    position.innerText = employee.positionName || "Посада в дорозі...";
+
     const experience = document.createElement("p");
     experience.classList.add("employee-list__item-expirience", "main-text");
     if (employee.employmentStartDate) {
@@ -137,7 +130,7 @@ if (employee.photo != null) {
       const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
       experience.innerText = `${years} р. досвіду`;
     } else {
-      experience.innerText = "Не вказано";
+      experience.innerText = "Працює з часів динозаврів. Точно не знаємо";
     }
 
     posExp.append(position, experience);
@@ -161,7 +154,7 @@ if (employee.photo != null) {
     phoneLink.href = employee.personalMobile
       ? `tel:${employee.personalMobile}`
       : "#";
-    phoneLink.innerText = employee.personalMobile || "Телефон не вказано";
+    phoneLink.innerText = employee.personalMobile || "Телефон ще не вказано";
 
     phone.append(phoneDecor, phoneLink);
 
@@ -180,7 +173,7 @@ if (employee.photo != null) {
     emailLink.href = employee.personalEmail
       ? `mailto:${employee.personalEmail}`
       : "#";
-    emailLink.innerText = employee.personalEmail || "Email не вказано";
+    emailLink.innerText = employee.personalEmail || "Email ще не вказано, відправляй лист голубом";
 
     email.append(emailDecor, emailLink);
     contacts.append(phone, email);

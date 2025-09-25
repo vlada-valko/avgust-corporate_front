@@ -29,7 +29,7 @@ document.querySelectorAll(".btn-wrapper-dark[id^='create-']").forEach((btn) => {
 export async function getCreateFormData(entityName) {
   try {
     const token = localStorage.getItem("jwt-token");
-    const response = await fetch(`http://localhost:8080/${entityName}/new`, {
+    const response = await fetch(`http://185.25.119.99:8080/${entityName}/new`, {
     // const response = await fetch(`https://avgust-corporate-server.fly.dev/${entityName}/new`, {
       method: "GET",
       headers: {
@@ -280,7 +280,7 @@ export async function sendDataFromForm(data, photoFile, entityName) {
   }
 
   try {
-    const url = ` http://localhost:8080/${entityName}/new`;
+    const url = ` http://185.25.119.99:8080/${entityName}/new`;
     // const url = `https://avgust-corporate-server.fly.dev/${entityName}/new`;
 
     const hasPhotoField = Object.keys(data).some((key) =>
@@ -367,7 +367,7 @@ export async function sendDataFromForm(data, photoFile, entityName) {
       return null;
     }
 console.log("1window.location.href = window.location.href")
-    alert("Успішно створено !!!!!");
+    alert("Створено успішно. Ви неперевершені;)");
 window.location.href = window.location.href;
 console.log("window.location.href = window.location.href")
     return (await response.json()).data;

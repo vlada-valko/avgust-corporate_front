@@ -1,7 +1,7 @@
 /*export async function createEmployee() {
   try {
     const token = localStorage.getItem("jwt-token");
-    const response = await fetch("http://localhost:8080/employees/new", {
+    const response = await fetch("http://185.25.119.99:8080/employees/new", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -125,7 +125,7 @@ async function renderEmployeeCreateForm(serverData) {
   createButton.addEventListener("click", async () => {
     try {
       const token = localStorage.getItem("jwt-token");
-      const url = "http://localhost:8080/employees/new";
+      const url = "http://185.25.119.99:8080/employees/new";
 
       const jsonData = { ...formData };
       delete jsonData.photo;
