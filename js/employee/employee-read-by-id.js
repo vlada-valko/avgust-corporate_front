@@ -47,6 +47,11 @@ function renderEmployeeCardById(employee) {
 
   const container = document.querySelector(".our-team-person-card-container");
   container.classList.add("visible");
+  window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    document.querySelector(".employee-list").style.display = "none";
   container.id = employee.employeeId;
 
   if (!employee) {
@@ -171,6 +176,7 @@ if (employee.photo != null) {
   if (closeBtn) {
     closeBtn.onclick = () => {
       container.classList.remove("visible");
+          document.querySelector(".employee-list").style.display = "flex";
     };
   }
 
