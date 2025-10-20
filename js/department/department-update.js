@@ -1,7 +1,7 @@
 export async function updateDepartment(id) {
     try {
         const token = localStorage.getItem("jwt-token");
-        const response = await fetch(`http://185.25.119.99:8080/departments/${id}/edit`, {
+        const response = await fetch(`https://avgust-corporate-server.duckdns.org/departments/${id}/edit`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -95,7 +95,7 @@ async function renderDepartmentUpdateForm(serverData) {
   const fileName = encodeURIComponent(parts.pop());
   const encodedPath = parts.join("/") + "/" + fileName;
                 const imgPreview = document.createElement("img");
-                imgPreview.src = "http://185.25.119.99:8080/" + encodedPath;;
+                imgPreview.src = "https://avgust-corporate-server.duckdns.org/" + encodedPath;;
                 imgPreview.alt = "Прев’ю";
                 imgPreview.style.maxWidth = "150px";
                 imgPreview.style.display = "block";
@@ -132,7 +132,7 @@ async function renderDepartmentUpdateForm(serverData) {
 saveButton.addEventListener("click", async () => {
   try {
     const token = localStorage.getItem("jwt-token");
-    const url = `http://185.25.119.99:8080/departments/${departmentDTO.id}/edit`;
+    const url = `https://avgust-corporate-server.duckdns.org/departments/${departmentDTO.id}/edit`;
 
     // 🔹 завжди multipart
     const jsonData = { ...formData };

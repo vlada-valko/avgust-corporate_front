@@ -1,7 +1,7 @@
 export async function deleteDepartment(id) {
     try {
         const token = localStorage.getItem("jwt-token");
-        const response = await fetch(`http://185.25.119.99:8080/departments/${id}/delete`, {
+        const response = await fetch(`https://avgust-corporate-server.duckdns.org/departments/${id}/delete`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,

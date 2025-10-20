@@ -6,7 +6,7 @@ export async function readEmployeeById(id) {
     try {
         const token = localStorage.getItem("jwt-token");
 
-const response = await fetch(`http://185.25.119.99:8080/employees/${id}`, {
+const response = await fetch(`https://avgust-corporate-server.duckdns.org/employees/${id}`, {
 
             method: "GET",
             headers: {
@@ -183,7 +183,7 @@ if (employee.photo != null) {
   relativePath = relativePath.replace(/(employees\/)(.*)/, (match, p1, p2) => {
     return p1 + encodeURIComponent(p2);
   });
-  const photoUrl = "http://185.25.119.99:8080/" + relativePath;
+  const photoUrl = "https://avgust-corporate-server.duckdns.org/" + relativePath;
   photoContainer.src = photoUrl;
 } else {
   photoContainer.src = "/img/team/default.jpg";

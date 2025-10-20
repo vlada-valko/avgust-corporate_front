@@ -2,7 +2,7 @@
 /*export async function createDepartment() {
   try {
     const token = localStorage.getItem("jwt-token");
-    const response = await fetch(`http://185.25.119.99:8080/departments/new`, {
+    const response = await fetch(`https://avgust-corporate-server.duckdns.org/departments/new`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -256,7 +256,7 @@ export async function sendDataFromForm(data, photoFile, entityName) {
   }
 
   try {
-    const url = ` http://185.25.119.99:8080/${entityName}/new`;
+    const url = ` https://avgust-corporate-server.duckdns.org/${entityName}/new`;
     // const url = `https://avgust-corporate-server.fly.dev/${entityName}/new`;
 
     const hasPhotoField = Object.keys(data).some((key) =>

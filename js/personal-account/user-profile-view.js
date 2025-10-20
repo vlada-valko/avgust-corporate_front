@@ -3,7 +3,7 @@ async function loadUserPage() {
     const token = localStorage.getItem("jwt-token");
     const userId = localStorage.getItem("userId");
 
-    const response = await fetch(`http://185.25.119.99:8080/employees/${userId}`, {
+    const response = await fetch(`https://avgust-corporate-server.duckdns.org/employees/${userId}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -169,7 +169,7 @@ async function toggleEditMode(fieldset) {
     try {
       const token = localStorage.getItem("jwt-token");
       const userId = localStorage.getItem("userId");
-      const response = await fetch(`http://185.25.119.99:8080/employees/${userId}/edit`, {
+      const response = await fetch(`https://avgust-corporate-server.duckdns.org/employees/${userId}/edit`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

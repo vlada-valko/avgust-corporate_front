@@ -29,8 +29,9 @@ document.querySelectorAll(".btn-wrapper-dark[id^='create-']").forEach((btn) => {
 export async function getCreateFormData(entityName) {
   try {
     const token = localStorage.getItem("jwt-token");
-    const response = await fetch(`http://185.25.119.99:8080/${entityName}/new`, {
-    // const response = await fetch(`https://avgust-corporate-server.fly.dev/${entityName}/new`, {
+  //  const response = await fetch(`https://avgust-corporate-server.duckdns.org/${entityName}/new`, {
+    const response = await fetch(`http://localhost:8080//${entityName}/new`, {
+
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -280,8 +281,8 @@ export async function sendDataFromForm(data, photoFile, entityName) {
   }
 
   try {
-    const url = ` http://185.25.119.99:8080/${entityName}/new`;
-    // const url = `https://avgust-corporate-server.fly.dev/${entityName}/new`;
+    const url =  // ` https://avgust-corporate-server.duckdns.org/${entityName}/new`;
+`http://localhost:8080//${entityName}/new`;
 
     const hasPhotoField = Object.keys(data).some((key) =>
       key.toLowerCase().includes("photo")

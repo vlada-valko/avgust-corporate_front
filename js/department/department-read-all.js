@@ -23,7 +23,7 @@ export async function readAllDepartments() {
     try {
         const token = localStorage.getItem("jwt-token");
 
-        const response = await fetch("http://185.25.119.99:8080/departments/all", {
+        const response = await fetch("https://avgust-corporate-server.duckdns.org/departments/all", {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -86,7 +86,7 @@ let relativePath = department.photo;
   const fileName = encodeURIComponent(parts.pop());
   const encodedPath = parts.join("/") + "/" + fileName;
             
-    photo.src = "http://185.25.119.99:8080/" + encodedPath;
+    photo.src = "https://avgust-corporate-server.duckdns.org/" + encodedPath;
 } else {
         photo.src = "/img/team/default.jpg"  ;
 }

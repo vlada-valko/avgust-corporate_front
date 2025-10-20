@@ -1,7 +1,7 @@
 const HARDCODED_CLIENTS = 5000;
 export async function getEmployeeCount() {
 try {
-    const response = await fetch("http://185.25.119.99:8080/employees/get-employee-count", {
+    const response = await fetch("https://avgust-corporate-server.duckdns.org/employees/get-employee-count", {
         method: "GET",
         headers: {
             "Accept": "application/json",
